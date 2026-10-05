@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://dnb0ek461mqcn"]
+
+[ext_resource type="FontFile" uid="uid://r1yy3li8avii" path="res://Fonts/Daydream DEMO.otf" id="1_072rh"]
+
+[resource]
+Button/fonts/font = ExtResource("1_072rh")

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://831oivb2tcv0"]
+
+[ext_resource type="Script" uid="uid://c814w2ng3lnue" path="res://Scripts/main.gd" id="1_rgh2o"]
+[ext_resource type="Script" uid="uid://bkdmx26wcdwo0" path="res://Scripts/ui.gd" id="2_kln2b"]
+[ext_resource type="FontFile" uid="uid://r1yy3li8avii" path="res://Fonts/Daydream DEMO.otf" id="3_rgh2o"]
+
+[node name="Main" type="Node" unique_id=144984912]
+script = ExtResource("1_rgh2o")
+
+[node name="World" type="Node2D" parent="." unique_id=2079954554]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=557614795]
+script = ExtResource("2_kln2b")
+
+[node name="Panel" type="Panel" parent="UI" unique_id=1972778021]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -544.5
+offset_top = -117.0
+offset_right = 544.5
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Panel" unique_id=1061741653]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel/MarginContainer" unique_id=963820021]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Panel/MarginContainer" unique_id=547521451]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_rgh2o")
+metadata/_edit_use_anchors_ = true
