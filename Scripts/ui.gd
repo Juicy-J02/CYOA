@@ -22,7 +22,7 @@ func update_choice(choices):
 	for choice in choices:
 		var button = Button.new()
 		button.text = choice["text"]
-		button.theme = load("res://buttonTheme.tres")
+		button.theme = load("res://Themes/buttonTheme.tres")
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		choice_buttons.add_child(button)
 		button.pressed.connect(StoryManager.choice_selected.bind(choice["next"]))
