@@ -39,4 +39,11 @@ var story_data = {
 		"text": "So... how am I getting inside?",
 		"next": "entry_choice"
 	},
+	
+	"door": {
+		"type": "dialogue",
+		"speaker": "Henry",
+		"text": "So... how am I getting inside?",
+		"next": "entry_choice"
+	},
 }
