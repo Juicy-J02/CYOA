@@ -46,4 +46,10 @@ var story_data = {
 		"text": "So... how am I getting inside?",
 		"next": "entry_choice"
 	},
+	"roof": {
+		"type": "dialogue",
+		"speaker": "Henry",
+		"text": "So... how am I getting inside?",
+		"next": "entry_choice"
+	},
 }
