@@ -1,5 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://bnrnrxx7cccfg"]
 
+[ext_resource type="FontFile" uid="uid://di66s0to2adxy" path="res://Fonts/Cinzel-Bold.ttf" id="1_5mgfp"]
 [ext_resource type="FontFile" uid="uid://b657o8omahjve" path="res://Fonts/CrimsonPro-Regular.ttf" id="1_ocm8a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocm8a"]
@@ -19,6 +20,19 @@ border_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3mhq"]
 bg_color = Color(0.074204974, 0.1074196, 0.16056561, 1)
 border_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75rg3"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+bg_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idj7w"]
 bg_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
@@ -60,6 +74,12 @@ Button/styles/normal = SubResource("StyleBoxFlat_ax7sj")
 Button/styles/pressed = SubResource("StyleBoxFlat_c3mhq")
 ChoiceRow/base_type = &"HBoxContainer"
 ChoiceRow/constants/separation = 0
+NameLabel/base_type = &"Label"
+NameLabel/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+NameLabel/font_sizes/font_size = 28
+NameLabel/fonts/font = ExtResource("1_5mgfp")
+NamePlate/base_type = &"PanelContainer"
+NamePlate/styles/panel = SubResource("StyleBoxFlat_75rg3")
 Panel/styles/panel = SubResource("StyleBoxFlat_idj7w")
 RichTextLabel/colors/default_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
 RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_ocm8a")

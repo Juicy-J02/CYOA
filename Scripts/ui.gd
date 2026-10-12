@@ -2,6 +2,9 @@ extends CanvasLayer
 
 @onready var text_box = $Panel/MarginContainer/RichTextLabel
 @onready var choice_buttons = $Panel/MarginContainer/HBoxContainer
+@onready var name_plate = $Panel/NamePlate
+@onready var name_label = $Panel/NamePlate/NameLabel
+
 
 func _ready():
 	StoryManager.dialogue_requested.connect(update_dialogue)
@@ -10,10 +13,17 @@ func _ready():
 func update_dialogue(speaker, text):
 	text_box.show()
 	choice_buttons.hide()
-	text_box.text = "%s: %s" % [speaker, text]
+	if speaker != "":
+		name_plate.show()
+		name_label.text = speaker
+		name_plate.reset_size()
+	else:
+		name_plate.hide()
+	text_box.text = text
 
 func update_choice(choices):
 	text_box.hide()
+	name_plate.hide()
 	choice_buttons.show()
 	
 	for child in choice_buttons.get_children():
