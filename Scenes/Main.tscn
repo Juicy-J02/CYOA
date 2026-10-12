@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c814w2ng3lnue" path="res://Scripts/main.gd" id="1_rgh2o"]
 [ext_resource type="Script" uid="uid://bkdmx26wcdwo0" path="res://Scripts/ui.gd" id="2_kln2b"]
-[ext_resource type="FontFile" uid="uid://r1yy3li8avii" path="res://Fonts/Daydream DEMO.otf" id="3_rgh2o"]
+[ext_resource type="Theme" uid="uid://bnrnrxx7cccfg" path="res://Themes/mainTheme.tres" id="3_kln2b"]
 
 [node name="Main" type="Node" unique_id=144984912]
 script = ExtResource("1_rgh2o")
@@ -32,15 +32,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel/MarginContainer" unique_id=963820021]
 layout_mode = 2
+theme = ExtResource("3_kln2b")
+theme_type_variation = &"ChoiceRow"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/Panel/MarginContainer" unique_id=547521451]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("3_rgh2o")
 metadata/_edit_use_anchors_ = true

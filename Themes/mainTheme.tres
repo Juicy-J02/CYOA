@@ -1,0 +1,66 @@
+[gd_resource type="Theme" format=3 uid="uid://bnrnrxx7cccfg"]
+
+[ext_resource type="FontFile" uid="uid://b657o8omahjve" path="res://Fonts/CrimsonPro-Regular.ttf" id="1_ocm8a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocm8a"]
+bg_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+border_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idj7w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tgr0p"]
+bg_color = Color(0.09839661, 0.13684511, 0.19976532, 1)
+border_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ax7sj"]
+bg_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+border_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3mhq"]
+bg_color = Color(0.074204974, 0.1074196, 0.16056561, 1)
+border_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idj7w"]
+bg_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ocm8a"]
+content_margin_left = 8.0
+content_margin_top = 5.0
+content_margin_right = 8.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ocm8a"]
+color = Color(0.07450981, 0.105882354, 0.15686275, 1)
+grow_begin = 4.0
+grow_end = 4.0
+thickness = 4
+vertical = true
+
+[resource]
+default_font = ExtResource("1_ocm8a")
+default_font_size = 26
+Button/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+Button/colors/font_focus_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+Button/colors/font_hover_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+Button/colors/font_hover_pressed_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+Button/colors/font_pressed_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_ocm8a")
+Button/styles/focus = SubResource("StyleBoxEmpty_idj7w")
+Button/styles/hover = SubResource("StyleBoxFlat_tgr0p")
+Button/styles/normal = SubResource("StyleBoxFlat_ax7sj")
+Button/styles/pressed = SubResource("StyleBoxFlat_c3mhq")
+ChoiceRow/base_type = &"HBoxContainer"
+ChoiceRow/constants/separation = 0
+Panel/styles/panel = SubResource("StyleBoxFlat_idj7w")
+RichTextLabel/colors/default_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_ocm8a")
+VSeparator/styles/separator = SubResource("StyleBoxLine_ocm8a")

@@ -19,10 +19,15 @@ func update_choice(choices):
 	for child in choice_buttons.get_children():
 		child.queue_free()
 	
-	for choice in choices:
+	for i in choices.size():
+		var choice = choices[i]
+
+		if i > 0:
+			var divider = VSeparator.new()
+			choice_buttons.add_child(divider)
+
 		var button = Button.new()
 		button.text = choice["text"]
-		button.theme = load("res://Themes/buttonTheme.tres")
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		choice_buttons.add_child(button)
 		button.pressed.connect(StoryManager.choice_selected.bind(choice["next"]))

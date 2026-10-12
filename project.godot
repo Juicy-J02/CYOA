@@ -26,6 +26,10 @@ StoryManager="*uid://csgum20r5dy1l"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[gui]
+
+theme/custom="uid://bnrnrxx7cccfg"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
