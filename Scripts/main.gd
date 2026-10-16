@@ -1,4 +1,4 @@
 extends Node
 
 func _ready():
-	StoryManager.start_story("intro")
+	StoryManager.start_story("zach0")
