@@ -18,6 +18,7 @@ func play_node(node_id):
 	current_node_id = node_id
 	
 	if not story_data.has(node_id):
+		push_error("Story node not found: " + node_id)
 		return
 	
 	var node_data = story_data[node_id]
@@ -31,6 +32,8 @@ func play_node(node_id):
 
 func play_next_node():
 	if InputManager.input_blocked:
+		return
+	if not story_data.has(current_node_id):
 		return
 	
 	var node_data = story_data[current_node_id]
