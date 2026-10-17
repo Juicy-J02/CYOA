@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CYOA"
-run/main_scene="uid://831oivb2tcv0"
+run/main_scene="uid://b5imne3tmsc0e"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 

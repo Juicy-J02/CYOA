@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b5imne3tmsc0e"]
 
+[ext_resource type="Script" uid="uid://cua8yi60dxo65" path="res://Scripts/startScreen.gd" id="1_0on6r"]
 [ext_resource type="FontFile" uid="uid://di66s0to2adxy" path="res://Fonts/Cinzel-Bold.ttf" id="1_ko4ly"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vau3p"]
@@ -14,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0on6r")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1529043717]
 layout_mode = 1
@@ -50,3 +52,5 @@ size_flags_horizontal = 4
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 50
 text = "Start"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
