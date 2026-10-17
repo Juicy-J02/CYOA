@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://b5imne3tmsc0e"]
+
+[ext_resource type="FontFile" uid="uid://di66s0to2adxy" path="res://Fonts/Cinzel-Bold.ttf" id="1_ko4ly"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vau3p"]
+font = ExtResource("1_ko4ly")
+font_size = 55
+font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+
+[node name="StartScreen" type="Control" unique_id=928626144]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=1529043717]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0023115394, 0.09450216, 0.1862413, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1584097762]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1659689058]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1437227967]
+layout_mode = 2
+text = "The Tale of Zachary Davis"
+label_settings = SubResource("LabelSettings_vau3p")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1257942670]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer" unique_id=2074418257]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 50
+text = "Start"
