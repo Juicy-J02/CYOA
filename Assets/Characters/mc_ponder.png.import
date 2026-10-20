@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blt8cno6dcdka"
-path="res://.godot/imported/narrator.png-dadf790c130164d2d8c26b2daef2d8e1.ctex"
+uid="uid://cw670ubdcqr3n"
+path="res://.godot/imported/mc_ponder.png-9be828fd5ec793959a0917ea38883d7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/narrator.png"
-dest_files=["res://.godot/imported/narrator.png-dadf790c130164d2d8c26b2daef2d8e1.ctex"]
+source_file="res://Assets/Characters/mc_ponder.png"
+dest_files=["res://.godot/imported/mc_ponder.png-9be828fd5ec793959a0917ea38883d7d.ctex"]
 
 [params]
 
