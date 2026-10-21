@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c814w2ng3lnue" path="res://Scripts/main.gd" id="1_rgh2o"]
 [ext_resource type="Script" uid="uid://bkdmx26wcdwo0" path="res://Scripts/ui.gd" id="2_kln2b"]
-[ext_resource type="Texture2D" uid="uid://blt8cno6dcdka" path="res://Assets/Characters/narrator.png" id="2_rgh2o"]
-[ext_resource type="Texture2D" uid="uid://c3rcxp82vba54" path="res://Assets/Backgrounds/Forest.jpg" id="3_rgh2o"]
+[ext_resource type="Texture2D" uid="uid://blt8cno6dcdka" path="res://Characters/narrator.png" id="2_rgh2o"]
 
 [node name="Main" type="Node" unique_id=144984912]
 script = ExtResource("1_rgh2o")
