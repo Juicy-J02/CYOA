@@ -23,6 +23,7 @@ StoryManager="*uid://csgum20r5dy1l"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

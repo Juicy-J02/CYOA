@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://ckdr310jcnqr4"]
+
+[ext_resource type="Script" uid="uid://ch2dcp5t8i1c3" path="res://Scripts/gameOver.gd" id="1_k52d1"]
+[ext_resource type="FontFile" uid="uid://di66s0to2adxy" path="res://Fonts/Cinzel-Bold.ttf" id="1_m5628"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k52d1"]
+font = ExtResource("1_m5628")
+font_size = 55
+font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+
+[node name="GameOver" type="Control" unique_id=1255815128]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k52d1")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1711003866]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0023115394, 0.09450216, 0.1862413, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=679137782]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1950267376]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=558144932]
+layout_mode = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_k52d1")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1219637360]
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer" unique_id=1088947662]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 50
+text = "Restart"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/RestartButton" to="." method="_on_restart_button_pressed"]

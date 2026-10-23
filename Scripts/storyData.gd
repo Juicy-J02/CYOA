@@ -1,6 +1,12 @@
 extends Node
 
 var story_data = {
+	"act1_scene1_background": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/Bedroom.jpg",
+		"next": "zach_act1_scene1_0"
+	},
+	
 	"zach_act1_scene1_0": {
 		"type": "dialogue",
 		"speaker": "Zach",
@@ -82,6 +88,13 @@ var story_data = {
 		"type": "dialogue",
 		"speaker": "Zach",
 		"text": "Give me a minute. Security's kinda tight tonight.",
+		"next": "think"
+	},
+	
+	"think": {
+		"type": "character",
+		"character": "res://Assets/Characters/mc_ponder.png",
+		"position": {"x": 565, "y": 350},
 		"next": "sneak_out"
 	},
 	
@@ -89,14 +102,81 @@ var story_data = {
 		"type": "choice",
 		"choices": [
 			{
-				"text": "Sneak out the window",
-				"next": "friend1_act1_scene2_0"
+				"text": "Sneak out the back door",
+				"next": "back_door_background",
 			},
 			{
-				"text": "Sneak out the back door",
-				"next": "friend1_act1_scene2_0"
-			}
+				"text": "Sneak out the window",
+				"next": "window_background"
+			},
 		]
+	},
+	
+	"back_door_background": {
+		"type": "background",
+		"background": "res://Assets/Scenes/out_door.png",
+		"next": "backdoor"
+	},
+	
+	"backdoor": {
+		"type": "character",
+		"character": "res://Assets/Scenes/out_door.png",
+		"position": {"x": 565, "y": 350},
+		"next": "zach_act1_scene1_6"
+	},
+	
+	"zach_act1_scene1_6": {
+		"type": "dialogue",
+		"speaker": "*Zach*",
+		"text": "*The back door should be fine.*",
+		"next": "dad_act1_scene1_2"
+	},
+	
+	"dad_act1_scene1_2": {
+		"type": "dialogue",
+		"speaker": "Dad",
+		"text": "ZACHARY DAVIS!!! WHERE DO YOU THINK YOU'RE GOING!?",
+		"next": "zach_act1_scene1_7"
+	},
+	
+	"zach_act1_scene1_7": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "*Crap.*",
+		"next": "end_game"
+	},
+	
+	"window_background": {
+		"type": "background",
+		"background": "",
+		"next": "window"
+	},
+	
+	"window": {
+		"type": "character",
+		"character": "res://Assets/Scenes/out_window.png",
+		"position": {"x": 500, "y": 325},
+		"next": "zach_act1_scene1_8"
+	},
+	
+	"zach_act1_scene1_8": {
+		"type": "dialogue",
+		"speaker": "*Zach*",
+		"text": "*The window should be fine.*",
+		"next": "act1_scene2_background_1"
+	},
+	
+	"act1_scene2_background_1": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/House.jpg",
+		"next": "friends_1"
+	},
+	
+	"friends_1": {
+		"type": "character",
+		"character": "res://Assets/Characters/meet_friends.png",
+		"position": {"x": 700, "y": 375},
+		"next": "friend1_act1_scene2_0"
 	},
 	
 	"friend1_act1_scene2_0": {
@@ -165,14 +245,20 @@ var story_data = {
 	"zach_act1_scene2_4": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "Can't be worse than your first attempt.",
-		"next": "friend1_act1_scene2_4"
+		"text": "All this talk is making me hungry, let's go get something.",
+		"next": "act1_scene2_background_2"
 	},
 	
-	"friend1_act1_scene2_4": {
-		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "Hey, I got there eventually, didn't I?",
+	"act1_scene2_background_2": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/Park.jpg",
+		"next": "friends_2"
+	},
+	
+	"friends_2": {
+		"type": "character",
+		"character": "res://Assets/Characters/meet_friends.png",
+		"position": {"x": 700, "y": 375},
 		"next": "friend2_act1_scene2_1"
 	},
 	
@@ -214,7 +300,7 @@ var story_data = {
 	"friend2_act1_scene2_3": {
 		"type": "dialogue",
 		"speaker": "Friend 2",
-		"text": "It only happened because the shareholders kept pestering us.",
+		"text": "It only happened because...y'know...",
 		"next": "zach_act1_scene2_7"
 	},
 	
@@ -229,34 +315,39 @@ var story_data = {
 		"type": "dialogue",
 		"speaker": "Friend 2",
 		"text": "We did not!",
-		"next": "friend2_act1_scene2_5"
+		"next": "pause_1"
 	},
 	
-	"friend2_act1_scene2_5": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "If they aren't paying you what you're worth, find someone who does.",
-		"next": "zach_act1_scene2_8"
-	},
+	#"friend2_act1_scene2_5": {
+		#"type": "dialogue",
+		#"speaker": "Friend 2",
+		#"text": "If they aren't paying you what you're worth, find someone who does.",
+		#"next": "zach_act1_scene2_8"
+	#},
+	#
+	#"zach_act1_scene2_8": {
+		#"type": "dialogue",
+		#"speaker": "Zach",
+		#"text": "I think I have.",
+		#"next": "friend1_act1_scene2_6"
+	#},
 	
-	"zach_act1_scene2_8": {
-		"type": "dialogue",
-		"speaker": "Zach",
-		"text": "I think I have.",
+	"pause_1": {
+		"type": "pause",
 		"next": "friend1_act1_scene2_6"
 	},
 	
 	"friend1_act1_scene2_6": {
 		"type": "dialogue",
 		"speaker": "Friend 1",
-		"text": "You think their company can survive without you?",
+		"text": "You think your parent's company can survive without you?",
 		"next": "zach_act1_scene2_9"
 	},
 	
 	"zach_act1_scene2_9": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "Nah. I'd probably burn it down within a month.",
+		"text": "Nah. It'd probably burn down within a month.",
 		"next": "friend2_act1_scene2_6"
 	},
 	
@@ -270,53 +361,53 @@ var story_data = {
 	"friend1_act1_scene2_7": {
 		"type": "dialogue",
 		"speaker": "Friend 1",
-		"text": "I give him a week.",
+		"text": "I give it a week.",
 		"next": "friend2_act1_scene2_7"
 	},
 	
 	"friend2_act1_scene2_7": {
 		"type": "dialogue",
 		"speaker": "Friend 2",
-		"text": "He is a professional at lighting things on fi- *clears throat* uh... sorry.",
-		"next": "zach_act1_scene2_10"
-	},
-	
-	"zach_act1_scene2_10": {
-		"type": "dialogue",
-		"speaker": "Zach",
-		"text": "What? That one hot for ya?",
-		"next": "zach_act1_scene2_11"
-	},
-	
-	"zach_act1_scene2_11": {
-		"type": "dialogue",
-		"speaker": "Zach",
-		"text": "Afraid you'll burn some bridges?",
-		"next": "friend2_act1_scene2_8"
-	},
-	
-	"friend2_act1_scene2_8": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "Well...",
+		"text": "You are a professional at lighting things on fi-",
 		"next": "friend1_act1_scene2_8"
 	},
 	
 	"friend1_act1_scene2_8": {
 		"type": "dialogue",
 		"speaker": "Friend 1",
-		"text": "Hey, take it easy.",
+		"text": "Quit it.",
+		"next": "friend2_act1_scene2_8"
+	},
+	
+	"friend2_act1_scene2_8": {
+		"type": "dialogue",
+		"speaker": "Friend 2",
+		"text": "...sorry.",
+		"next": "zach_act1_scene2_10"
+	},
+	
+	"zach_act1_scene2_10": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "What? Afraid you're gonna start something?",
 		"next": "friend2_act1_scene2_9"
 	},
 	
 	"friend2_act1_scene2_9": {
 		"type": "dialogue",
 		"speaker": "Friend 2",
-		"text": "Thanks.",
+		"text": "Well...",
 		"next": "friend1_act1_scene2_9"
 	},
 	
 	"friend1_act1_scene2_9": {
+		"type": "dialogue",
+		"speaker": "Friend 1",
+		"text": "Hey, take it easy.",
+		"next": "friend1_act1_scene2_10"
+	},
+	
+	"friend1_act1_scene2_10": {
 		"type": "dialogue",
 		"speaker": "Friend 1",
 		"text": "He's already overheating. Any more and he'll surely melt.",
@@ -326,7 +417,12 @@ var story_data = {
 	"friend2_act1_scene2_10": {
 		"type": "dialogue",
 		"speaker": "Friend 2",
-		"text": "Of course.",
+		"text": "sorry...",
+		"next": "pause_2"
+	},
+	
+	"pause_2": {
+		"type": "pause",
 		"next": "friend2_act1_scene2_11"
 	},
 	
@@ -341,6 +437,19 @@ var story_data = {
 		"type": "dialogue",
 		"speaker": "Zach",
 		"text": "Let's find out.",
+		"next": "act1_scene3_background"
+	},
+	
+	"act1_scene3_background": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/Forest.jpg",
+		"next": "structure"
+	},
+	
+	"structure": {
+		"type": "character",
+		"character": "res://Assets/Scenes/statue.png",
+		"position": {"x": 700, "y": 400},
 		"next": "investigate_structure"
 	},
 	
@@ -349,9 +458,16 @@ var story_data = {
 		"choices": [
 			{
 				"text": "Investigate the structure",
-				"next": "narrator_act1_scene3_0"
+				"next": "narrator"
 			}
 		]
+	},
+	
+	"narrator": {
+		"type": "character",
+		"character": "res://Assets/Characters/narrator.png",
+		"position": {"x": 1020, "y": 275},
+		"next": "narrator_act1_scene3_0"
 	},
 	
 	"narrator_act1_scene3_0": {
@@ -365,20 +481,77 @@ var story_data = {
 		"type": "dialogue",
 		"speaker": "*Zach*",
 		"text": "*I already felt trapped by my parents expectations, this is SO much worse. A prophecy!? NO!*",
-		"next": "zach_act1_scene3_1"
+		"next": "prophecy_questions"
 	},
 	
-	"zach_act1_scene3_1": {
+	"prophecy_questions": {
+	"type": "choice",
+	"choices": [
+			{
+				"text": "What are we fighting?",
+				"next": "prophecy_enemy"
+			},
+			{
+				"text": "Why us?",
+				"next": "prophecy_why_us"
+			},
+			{
+				"text": "What if we refuse?",
+				"next": "prophecy_refuse"
+			},
+			{
+				"text": "Fine. What's the first step?",
+				"next": "narrator_act1_scene3_1"
+			}
+		]
+	},
+
+	"prophecy_enemy": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Something I've kept contained for far too long. Something that is beginning to push back.",
+		"next": "prophecy_enemy_response"
+	},
+
+	"prophecy_enemy_response": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "Why do we have to do any of this?",
-		"next": "narrator_act1_scene3_1"
+		"text": "That's impressively vague. Have you considered a career in management?",
+		"next": "prophecy_questions"
+	},
+
+	"prophecy_why_us": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Each of you has something the others lack. You will understand when you find your weapons.",
+		"next": "prophecy_why_us_response"
+	},
+
+	"prophecy_why_us_response": {
+		"type": "dialogue",
+		"speaker": "Friend 2",
+		"text": "For the record, all I brought was a cheeseburger.",
+		"next": "prophecy_questions"
+	},
+
+	"prophecy_refuse": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Then the seal will eventually break, and whatever life you return to will be in danger.",
+		"next": "prophecy_refuse_response"
+	},
+
+	"prophecy_refuse_response": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "Great. Another person telling me my future has already been decided.",
+		"next": "prophecy_questions"
 	},
 	
 	"narrator_act1_scene3_1": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "I've kept it in check for a long time, but it's grown recently. The time has come to be who you were meant to be. I need each of you to find your weapons and slay it before it escapes.",
+		"text": "The time has come to be who you were meant to be. I need each of you to find your weapons.",
 		"next": "narrator_act1_scene3_2"
 	},
 	
@@ -386,6 +559,13 @@ var story_data = {
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "It's time for your first quest.",
+		"next": "portal_open"
+	},
+	
+	"portal_open": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "The stranger creates a portal.",
 		"next": "zach_act1_scene3_2"
 	},
 	
@@ -411,12 +591,41 @@ var story_data = {
 	},
 	
 	"go_through_portal": {
-		"type": "choice",
-		"choices": [
+	"type": "choice",
+	"choices": [
 			{
-				"text": "Go through the portal",
-				"next": "go_through_portal"
+				"text": "Walk away",
+				"next": "portal_walk_away"
+			},
+			{
+				"text": "Step through the portal",
+				"next": "portal_enter"
 			}
 		]
+	},
+	
+	"portal_walk_away": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "Zach turns his back on the portal. Behind him, a crack spreads across the statue. For tonight, at least, his future is his own.",
+		"next": "end_game"
+	},
+	
+	"portal_enter": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Godspeed, young adventurers.",
+		"next": "end_act1"
+	},
+	
+	"end_act1": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "End Act 1",
+		"next": "end_game"
+	},
+	
+	"end_game": {
+		"type": "end_game"
 	}
 }

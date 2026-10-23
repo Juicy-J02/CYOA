@@ -5,13 +5,15 @@ extends CanvasLayer
 @onready var name_plate = $Panel/NamePlate
 @onready var name_label = $Panel/NamePlate/NameLabel
 
-
 func _ready():
 	StoryManager.dialogue_requested.connect(update_dialogue)
 	StoryManager.choices_requested.connect(update_choice)
+	StoryManager.pause_request.connect(pause)
 
 func update_dialogue(speaker, text):
+	$Panel.show()
 	text_box.show()
+	name_plate.show()
 	choice_buttons.hide()
 	if speaker != "":
 		name_plate.show()
@@ -22,6 +24,7 @@ func update_dialogue(speaker, text):
 	text_box.text = text
 
 func update_choice(choices):
+	$Panel.show()
 	text_box.hide()
 	name_plate.hide()
 	choice_buttons.show()
@@ -41,3 +44,6 @@ func update_choice(choices):
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		choice_buttons.add_child(button)
 		button.pressed.connect(StoryManager.choice_selected.bind(choice["next"]))
+
+func pause():
+	$Panel.hide()
