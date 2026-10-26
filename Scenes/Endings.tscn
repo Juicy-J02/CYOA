@@ -1,0 +1,93 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/endings.gd" id="1_endings"]
+[ext_resource type="FontFile" uid="uid://di66s0to2adxy" path="res://Fonts/Cinzel-Bold.ttf" id="2_cinzel"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font = ExtResource("2_cinzel")
+font_size = 55
+font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+
+[node name="Endings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_endings")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0023115394, 0.09450216, 0.1862413, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Progress"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="CountLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Choices explored: 0 of 0     Endings found: 0 of 0"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(920, 300)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Columns" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 60
+
+[node name="ChoiceList" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Scroll/Columns"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="EndingColumn" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Scroll/Columns"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="EndingsHeading" type="Label" parent="CenterContainer/VBoxContainer/Scroll/Columns/EndingColumn"]
+layout_mode = 2
+theme_type_variation = &"NameLabel"
+text = "Endings"
+
+[node name="EndingList" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Scroll/Columns/EndingColumn"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 50
+text = "Back"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -42,15 +42,31 @@ theme_override_constants/separation = 50
 layout_mode = 2
 text = "The Tale of Zachary Davis"
 label_settings = SubResource("LabelSettings_vau3p")
+horizontal_alignment = 1
 
 [node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1257942670]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 50
+text = "Continue"
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer" unique_id=2074418257]
 layout_mode = 2
-size_flags_horizontal = 4
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 50
-text = "Start"
+text = "New Game"
 
+[node name="EndingsButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 50
+text = "Progress"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/EndingsButton" to="." method="_on_endings_button_pressed"]

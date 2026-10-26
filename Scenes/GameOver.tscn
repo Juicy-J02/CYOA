@@ -42,15 +42,31 @@ theme_override_constants/separation = 50
 layout_mode = 2
 text = "GAME OVER"
 label_settings = SubResource("LabelSettings_k52d1")
+horizontal_alignment = 1
 
 [node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1219637360]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="LastChoiceButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 50
+text = "Retry Last Choice"
 
 [node name="RestartButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer" unique_id=1088947662]
 layout_mode = 2
-size_flags_horizontal = 4
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 50
-text = "Restart"
+text = "Restart from Beginning"
 
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 50
+text = "Main Menu"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/LastChoiceButton" to="." method="_on_last_choice_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/ExitButton" to="." method="_on_exit_button_pressed"]
