@@ -110,27 +110,14 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_progress_entry"]
+content_margin_left = 36.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ocm8a"]
 content_margin_left = 8.0
 content_margin_top = 5.0
 content_margin_right = 8.0
 content_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_ocm8a"]
-color = Color(0.07450981, 0.105882354, 0.15686275, 1)
-grow_begin = 4.0
-grow_end = 4.0
-thickness = 4
-vertical = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scroll_track"]
-content_margin_left = 3.0
-content_margin_right = 3.0
-bg_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scroll_grabber"]
 bg_color = Color(0.6313726, 0.44313726, 0.2, 1)
@@ -146,8 +133,21 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_progress_entry"]
-content_margin_left = 36.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scroll_track"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0.07265624, 0.10476253, 0.15730706, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ocm8a"]
+color = Color(0.07450981, 0.105882354, 0.15686275, 1)
+grow_begin = 4.0
+grow_end = 4.0
+thickness = 4
+vertical = true
 
 [resource]
 default_font = ExtResource("1_ocm8a")
@@ -164,25 +164,25 @@ Button/styles/normal = SubResource("StyleBoxFlat_ax7sj")
 Button/styles/pressed = SubResource("StyleBoxFlat_c3mhq")
 ChoiceRow/base_type = &"HBoxContainer"
 ChoiceRow/constants/separation = 0
+Label/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
 MainMenuButton/base_type = &"Button"
 MainMenuButton/styles/disabled = SubResource("StyleBoxFlat_menu_disabled")
 MainMenuButton/styles/hover = SubResource("StyleBoxFlat_menu_hover")
 MainMenuButton/styles/normal = SubResource("StyleBoxFlat_menu_normal")
 MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_menu_pressed")
-Label/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
 NameLabel/base_type = &"Label"
 NameLabel/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
 NameLabel/font_sizes/font_size = 28
 NameLabel/fonts/font = ExtResource("1_5mgfp")
 NamePlate/base_type = &"PanelContainer"
 NamePlate/styles/panel = SubResource("StyleBoxFlat_75rg3")
+Panel/styles/panel = SubResource("StyleBoxFlat_idj7w")
 ProgressEntry/base_type = &"Label"
 ProgressEntry/styles/normal = SubResource("StyleBoxEmpty_progress_entry")
-Panel/styles/panel = SubResource("StyleBoxFlat_idj7w")
 RichTextLabel/colors/default_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
 RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_ocm8a")
-VSeparator/styles/separator = SubResource("StyleBoxLine_ocm8a")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_scroll_grabber")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_scroll_grabber_hover")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_scroll_grabber_hover")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_scroll_track")
+VSeparator/styles/separator = SubResource("StyleBoxLine_ocm8a")
