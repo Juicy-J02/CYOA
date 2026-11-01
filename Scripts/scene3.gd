@@ -21,9 +21,23 @@ static func get_nodes() -> Dictionary:
 		"choices": [
 			{
 				"text": "Investigate the structure",
-				"next": "narrator"
+				"next": "plaque"
 			}
 		]
+	},
+	
+	"plaque": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "In front of the statue is a plaque that reads \"The Tale of Zachery Davis\", but before you can read the rest, a voice interrupts.",
+		"next": "voice_act1_scene3_0"
+	},
+	
+	"voice_act1_scene3_0": {
+		"type": "dialogue",
+		"speaker": "The voice",
+		"text": "The Tale of Zachery Davis.",
+		"next": "narrator"
 	},
 	
 	"narrator": {
@@ -44,12 +58,82 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "*Zach*",
 		"text": "*I already felt trapped by my parents expectations, this is SO much worse. A prophecy!? NO!*",
+		"next": "zach_act1_scene3_1"
+	},
+	
+	"zach_act1_scene3_1": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "...",
+		"next": "zach_act1_scene3_2"
+	},
+	
+	"zach_act1_scene3_2": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "What?",
+		"next": "narrator_act1_scene3_1"
+	},
+	
+	"narrator_act1_scene3_1": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Hello Zachery. I've been waiting for you.",
+		"next": "narrator_act1_scene3_2"
+	},
+	
+	"narrator_act1_scene3_2": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "It's time for you to fulfill your destiny.",
+		"next": "zach_act1_scene3_3"
+	},
+	
+	"zach_act1_scene3_3": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "I don't think so.",
+		"next": "ice_wall"
+	},
+	
+	"ice_wall": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "Zach tries to walk away, but a wall of ice suddenly blocks his path.",
+		"next": "narrator_portal"
+	},
+	
+	"narrator_portal": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "A portal appears in front of Zach, and the Narrator steps through.",
+		"next": "narrator_act1_scene3_3"
+	},
+	
+	"narrator_act1_scene3_3": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "You can't run from your fate.",
+		"next": "zach_act1_scene3_4"
+	},
+	
+	"zach_act1_scene3_4": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "Why.",
+		"next": "narrator_act1_scene3_4"
+	},
+	
+	"narrator_act1_scene3_4": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "You are the hero, destined to defeat evil.",
 		"next": "prophecy_questions"
 	},
 	
 	"prophecy_questions": {
-	"type": "choice",
-	"choices": [
+		"type": "choice",
+		"choices": [
 			{
 				"text": "What are we fighting?",
 				"next": "prophecy_enemy"
@@ -64,46 +148,46 @@ static func get_nodes() -> Dictionary:
 			},
 			{
 				"text": "Fine. What's the first step?",
-				"next": "narrator_act1_scene3_1"
+				"next": "dragon_portal"
 			}
 		]
 	},
-
+	
 	"prophecy_enemy": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "Something I've kept contained for far too long. Something that is beginning to push back.",
 		"next": "prophecy_enemy_response"
 	},
-
+	
 	"prophecy_enemy_response": {
 		"type": "dialogue",
 		"speaker": "Zach",
 		"text": "That's impressively vague. Have you considered a career in management?",
 		"next": "prophecy_questions"
 	},
-
+	
 	"prophecy_why_us": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "Each of you has something the others lack. You will understand when you find your weapons.",
 		"next": "prophecy_why_us_response"
 	},
-
+	
 	"prophecy_why_us_response": {
 		"type": "dialogue",
-		"speaker": "Friend 2",
+		"speaker": "Jayce",
 		"text": "For the record, all I brought was a cheeseburger.",
 		"next": "prophecy_questions"
 	},
-
+	
 	"prophecy_refuse": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "Then the seal will eventually break, and whatever life you return to will be in danger.",
 		"next": "prophecy_refuse_response"
 	},
-
+	
 	"prophecy_refuse_response": {
 		"type": "dialogue",
 		"speaker": "Zach",
@@ -111,42 +195,77 @@ static func get_nodes() -> Dictionary:
 		"next": "prophecy_questions"
 	},
 	
-	"narrator_act1_scene3_1": {
+	"dragon_portal": {
 		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": "The time has come to be who you were meant to be. I need each of you to find your weapons.",
-		"next": "narrator_act1_scene3_2"
+		"speaker": "",
+		"text": "The Narrator opens a portal beside you. You look through and see a large dragon sitting in darkness.",
+		"next": "narrator_act1_scene3_5"
 	},
 	
-	"narrator_act1_scene3_2": {
+	"narrator_act1_scene3_5": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "It's time for your first quest.",
+		"text": "If that dragon is ever let loose, it will bring chaos and destruction.",
+		"next": "narrator_act1_scene3_6"
+	},
+	
+	"narrator_act1_scene3_6": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "For generations my family has tried to stop it, contain it, snuff out the flame, but it always escapes.",
+		"next": "narrator_act1_scene3_7"
+	},
+	
+	"narrator_act1_scene3_7": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Others have stood where you're standing. The dragon either beat them, or slipped away.",
+		"next": "narrator_act1_scene3_8"
+	},
+	
+	"narrator_act1_scene3_8": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "You are the hero of prophecy. You are the only one who can kill it.",
+		"next": "narrator_act1_scene3_9"
+	},
+	
+	"narrator_act1_scene3_9": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "You must go on 3 quests, find the weapons, and slay the dragon.",
+		"next": "narrator_act1_scene3_10"
+	},
+	
+	"narrator_act1_scene3_10": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "I am here to help you become who you're meant to be. Let me show you.",
+		"next": "scar_erased"
+	},
+	
+	"scar_erased": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "The Narrator grabs Zach's right hand and casts a spell on it. Zach looks down in shock. His scar is gone.",
+		"next": "zach_act1_scene3_5"
+	},
+	
+	"zach_act1_scene3_5": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "Wh- What did you do?",
 		"next": "portal_open"
 	},
 	
 	"portal_open": {
 		"type": "dialogue",
 		"speaker": "",
-		"text": "The stranger creates a portal.",
-		"next": "zach_act1_scene3_2"
+		"text": "The Narrator opens a portal.",
+		"next": "narrator_act1_scene3_11"
 	},
 	
-	"zach_act1_scene3_2": {
-		"type": "dialogue",
-		"speaker": "Zach",
-		"text": "Wh- What did you do?",
-		"next": "narrator_act1_scene3_3"
-	},
-	
-	"narrator_act1_scene3_3": {
-		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": ". . .",
-		"next": "narrator_act1_scene3_4"
-	},
-	
-	"narrator_act1_scene3_4": {
+	"narrator_act1_scene3_11": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "It's time for your first quest.",
@@ -154,8 +273,8 @@ static func get_nodes() -> Dictionary:
 	},
 	
 	"go_through_portal": {
-	"type": "choice",
-	"choices": [
+		"type": "choice",
+		"choices": [
 			{
 				"text": "Walk away",
 				"next": "portal_walk_away"
@@ -185,7 +304,7 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "",
 		"text": "End Act 1",
-		"next": "end_game"
+		"next": "act2_scene1_background"
 	},
 	
 	"end_game": {
