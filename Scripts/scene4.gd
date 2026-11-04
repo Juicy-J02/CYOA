@@ -19,112 +19,133 @@ static func get_nodes() -> Dictionary:
 	"narrator_act2_scene1_0": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "The hero and his friends depart at last on a foretold journey through their past.",
+		"text": "The Hero and his friends depart on a journey through their past.",
 		"next": "narrator_act2_scene1_1"
 	},
 	
 	"narrator_act2_scene1_1": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "The hero says they should just go home, back to the lives and the clothes they know.",
-		"next": "zach_act2_scene1_0"
-	},
-	
-	"zach_act2_scene1_0": {
-		"type": "dialogue",
-		"speaker": "Zach",
-		"text": "...",
+		"text": "First, they find themselves in their high school drama club's dressing room after hours, surrounded by wigs, costumes, and props they would use on stage.",
 		"next": "narrator_act2_scene1_2"
 	},
 	
 	"narrator_act2_scene1_2": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "Ah-hem! The hero says they should just go home.",
-		"next": "zach_act2_scene1_1"
-	},
-	
-	"zach_act2_scene1_1": {
-		"type": "dialogue",
-		"speaker": "Zach",
-		"text": "Uh, we should just go home?",
-		"next": "narrator_act2_scene1_3"
-	},
-	
-	"narrator_act2_scene1_3": {
-		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": "Much better. But before they could leave, one of the hero's friends noticed something strange.",
+		"text": "The Rogue turned to the Hero and asked if they should be here.",
 		"next": "narration_act2_scene1_1"
 	},
 	
 	"narration_act2_scene1_1": {
 		"type": "dialogue",
 		"speaker": "",
-		"text": "Kyle catches his reflection in the mirror.",
+		"text": "...",
+		"next": "narrator_act2_scene1_3"
+	},
+	
+	"narrator_act2_scene1_3": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Ah-hem! The Rogue turned to the Hero and asked if they should be here this late.",
 		"next": "kyle_act2_scene1_0"
 	},
 	
 	"kyle_act2_scene1_0": {
 		"type": "dialogue",
 		"speaker": "Kyle",
-		"text": "What happened to my hair?",
+		"text": "Does he mean me?",
 		"next": "narrator_act2_scene1_4"
 	},
 	
 	"narrator_act2_scene1_4": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "One of them was looking at the selection of wigs in front of the mirror, when one caught his eye.",
-		"next": "narrator_act2_scene1_5"
-	},
-	
-	"narrator_act2_scene1_5": {
-		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": "A long, red wig.",
-		"next": "narrator_act2_scene1_6"
-	},
-	
-	"narrator_act2_scene1_6": {
-		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": "He picked it up and had the strangest feeling to put it on.",
-		"next": "narrator_act2_scene1_7"
-	},
-	
-	"narrator_act2_scene1_7": {
-		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": "What you're looking for has always been here, waiting until you were ready to find it.",
-		"next": "narrator_act2_scene1_8"
-	},
-	
-	"narrator_act2_scene1_8": {
-		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": "But first, you must fix a mistake from your past and give up something you foolishly held close.",
-		"next": "narration_act2_scene1_2"
-	},
-	
-	"narration_act2_scene1_2": {
-		"type": "dialogue",
-		"speaker": "",
-		"text": "Kyle looks at the wig in his hands.",
+		"text": "Yes. You are the Rogue. Now you turn to the Hero and ask...",
 		"next": "kyle_act2_scene1_1"
 	},
 	
 	"kyle_act2_scene1_1": {
 		"type": "dialogue",
 		"speaker": "Kyle",
-		"text": "But... I...",
+		"text": "Uh, should we be here this late?",
+		"next": "narrator_act2_scene1_5"
+	},
+	
+	"narrator_act2_scene1_5": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "The Hero says they shouldn't.",
+		"next": "zach_act2_scene1_0"
+	},
+	
+	"zach_act2_scene1_0": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "We shouldn't, but you still want to, right?",
+		"next": "jayce_act2_scene1_0"
+	},
+	
+	"jayce_act2_scene1_0": {
+		"type": "dialogue",
+		"speaker": "Jayce",
+		"text": "I know he wants to fix that.",
+		"next": "narrator_act2_scene1_6"
+	},
+	
+	"narrator_act2_scene1_6": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "The Rogue looks towards the back of the room and sees a set of wigs in front of a mirror and looks at himself.",
+		"next": "kyle_act2_scene1_2"
+	},
+	
+	"kyle_act2_scene1_2": {
+		"type": "dialogue",
+		"speaker": "Kyle",
+		"text": "MY HAIR! What happened to my hair?",
+		"next": "narrator_act2_scene1_7"
+	},
+	
+	"narrator_act2_scene1_7": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "The Rogue looked down at the pile of wigs when one caught his attention. The red wig. About shoulder length.",
+		"next": "narrator_act2_scene1_8"
+	},
+	
+	"narrator_act2_scene1_8": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "He wondered what he'd look like with hair like that for a moment before remembering the school's dress code.",
+		"next": "kyle_act2_scene1_3"
+	},
+	
+	"kyle_act2_scene1_3": {
+		"type": "dialogue",
+		"speaker": "Kyle",
+		"text": "DID YOU SHAVE ME?",
 		"next": "narrator_act2_scene1_9"
 	},
 	
 	"narrator_act2_scene1_9": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "To find what he's looking for, the rogue must forsake the wig, proudly wear his uniform, and be who he's supposed to be.",
+		"text": "To find what he's looking for, The Rogue must accept himself as he is and be who he's supposed to be.",
+		"next": "kyle_act2_scene1_4"
+	},
+	
+	"kyle_act2_scene1_4": {
+		"type": "dialogue",
+		"speaker": "Kyle",
+		"text": "Jayce, help me find some scissors so I can cut that old fart's beard off.",
+		"next": "narrator_act2_scene1_10"
+	},
+	
+	"narrator_act2_scene1_10": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "The Hero saw him struggling with this and decided to help.",
 		"next": "wig_choice"
 	},
 	
@@ -145,67 +166,81 @@ static func get_nodes() -> Dictionary:
 	"zach_act2_scene1_u_0": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "Kyle... you look good enough as is.",
+		"text": "The dress code is there for a reason, and you look good enough already.",
 		"next": "kyle_act2_scene1_u_0"
 	},
 	
 	"kyle_act2_scene1_u_0": {
 		"type": "dialogue",
 		"speaker": "Kyle",
-		"text": "Zach?",
+		"text": "What? That's-",
 		"next": "narrator_act2_scene1_u_0"
 	},
 	
 	"narrator_act2_scene1_u_0": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "The hero reminds his friend of the school's dress code. They have it for a reason, it's best to follow it.",
+		"text": "The Hero reminded The Rogue that he should follow the dress code and stay out of trouble. Better safe than sorry.",
 		"next": "kyle_act2_scene1_u_1"
 	},
 	
 	"kyle_act2_scene1_u_1": {
 		"type": "dialogue",
 		"speaker": "Kyle",
-		"text": "Zach, come on.",
+		"text": "Zach, are you seriously letting him tell you what to do?",
 		"next": "zach_act2_scene1_u_1"
 	},
 	
 	"zach_act2_scene1_u_1": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "Did you see what he did to my hand? I don't know what he might do if we don't go along with him.",
-		"next": "kyle_act2_scene1_u_2"
-	},
-	
-	"kyle_act2_scene1_u_2": {
-		"type": "dialogue",
-		"speaker": "Kyle",
-		"text": "You're seriously gonna let him tell you what to do?",
+		"text": "You saw what he did to my hand? To your hair? Putting us in this place?",
 		"next": "zach_act2_scene1_u_2"
 	},
 	
 	"zach_act2_scene1_u_2": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "... I don't know.",
+		"text": "How do we fight back against this?",
+		"next": "zach_act2_scene1_u_3"
+	},
+	
+	"zach_act2_scene1_u_3": {
+		"type": "dialogue",
+		"speaker": "Zach",
+		"text": "Let's just play along for now. Rehearsals gotta end eventually, right?",
+		"next": "narrator_act2_scene1_u_1"
+	},
+	
+	"narrator_act2_scene1_u_1": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "The Rogue puts down the red wig and decides to stay in uniform.",
+		"next": "narrator_act2_scene1_u_2"
+	},
+	
+	"narrator_act2_scene1_u_2": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Suddenly, a beautiful bow and arrow appeared before him.",
 		"next": "narration_act2_scene1_u_0"
 	},
 	
 	"narration_act2_scene1_u_0": {
 		"type": "dialogue",
 		"speaker": "",
-		"text": "Kyle puts down the wig, and a bow and arrow appear before him. He takes them.",
-		"next": "kyle_act2_scene1_u_3"
+		"text": "Kyle takes the bow and arrow.",
+		"next": "kyle_act2_scene1_u_2"
 	},
 	
-	"kyle_act2_scene1_u_3": {
+	"kyle_act2_scene1_u_2": {
 		"type": "dialogue",
 		"speaker": "Kyle",
 		"text": "What am I supposed to do with this?",
-		"next": "narrator_act2_scene1_u_1"
+		"next": "narrator_act2_scene1_u_3"
 	},
 	
-	"narrator_act2_scene1_u_1": {
+	"narrator_act2_scene1_u_3": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "You'll figure it out. Now...",
@@ -216,10 +251,10 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "",
 		"text": "The Narrator opens a portal.",
-		"next": "narrator_act2_scene1_u_2"
+		"next": "narrator_act2_scene1_u_4"
 	},
 	
-	"narrator_act2_scene1_u_2": {
+	"narrator_act2_scene1_u_4": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "It's time for your second quest.",
@@ -239,7 +274,7 @@ static func get_nodes() -> Dictionary:
 	"zach_act2_scene1_h_0": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "I looked at Kyle and asked, 'You gonna try it on? I bet it'd look good on you.'",
+		"text": "I looked at Kyle and asked, 'You wanna try it on? I bet it'd look good on you.'",
 		"next": "narrator_act2_scene1_h_0"
 	},
 	
@@ -253,7 +288,7 @@ static func get_nodes() -> Dictionary:
 	"kyle_act2_scene1_h_0": {
 		"type": "dialogue",
 		"speaker": "Kyle",
-		"text": "I chose to ignore the annoying voice in the back of my head...",
+		"text": "I chose to ignore the annoying voice in the back of my head and do it anyway.",
 		"next": "narrator_act2_scene1_h_1"
 	},
 	
@@ -267,25 +302,18 @@ static func get_nodes() -> Dictionary:
 	"kyle_act2_scene1_h_1": {
 		"type": "dialogue",
 		"speaker": "Kyle",
-		"text": "...and do what I want.",
+		"text": "I put on the red wig and looked at myself in the mirror.",
 		"next": "kyle_act2_scene1_h_2"
 	},
 	
 	"kyle_act2_scene1_h_2": {
 		"type": "dialogue",
 		"speaker": "Kyle",
-		"text": "I put the wig on and looked at myself in the mirror.",
+		"text": "I looked... good. Really good.",
 		"next": "kyle_act2_scene1_h_3"
 	},
 	
 	"kyle_act2_scene1_h_3": {
-		"type": "dialogue",
-		"speaker": "Kyle",
-		"text": "I looked... good. Really good.",
-		"next": "kyle_act2_scene1_h_4"
-	},
-	
-	"kyle_act2_scene1_h_4": {
 		"type": "dialogue",
 		"speaker": "Kyle",
 		"text": "I asked Zach, 'You think the school would let me dye my hair?'",
@@ -295,53 +323,67 @@ static func get_nodes() -> Dictionary:
 	"zach_act2_scene1_h_1": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "I replied, 'You think they'll have a choice?'",
-		"next": "kyle_act2_scene1_h_5"
+		"text": "I replied, 'You think they have a choice?'",
+		"next": "kyle_act2_scene1_h_4"
 	},
 	
-	"kyle_act2_scene1_h_5": {
+	"kyle_act2_scene1_h_4": {
 		"type": "dialogue",
 		"speaker": "Kyle",
-		"text": "Hahaha! Ok, let's do it.",
+		"text": "Hahaha! Then, let's do it.",
 		"next": "narration_act2_scene1_h_0"
 	},
 	
 	"narration_act2_scene1_h_0": {
 		"type": "dialogue",
 		"speaker": "",
-		"text": "Suddenly, a small bright fire appears in the air in front of Kyle. He puts his hand over it. It's surprisingly warm.",
-		"next": "narration_act2_scene1_h_1"
-	},
-	
-	"narration_act2_scene1_h_1": {
-		"type": "dialogue",
-		"speaker": "",
-		"text": "Kyle holds the fire in his hands, and it becomes a part of him.",
-		"next": "kyle_act2_scene1_h_6"
-	},
-	
-	"kyle_act2_scene1_h_6": {
-		"type": "dialogue",
-		"speaker": "Kyle",
-		"text": "It feels so warm.",
+		"text": "Suddenly, a small bright fire appears in the air in front of Kyle.",
 		"next": "narrator_act2_scene1_h_2"
 	},
 	
 	"narrator_act2_scene1_h_2": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "What did you do? Where's the bow? You're supposed to have the bow!",
+		"text": "Wait, that's not supposed to be here?",
+		"next": "narration_act2_scene1_h_1"
+	},
+	
+	"narration_act2_scene1_h_1": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "Kyle puts his hand over the flame. It doesn't hurt at all.",
+		"next": "narrator_act2_scene1_h_3"
+	},
+	
+	"narrator_act2_scene1_h_3": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "You're supposed to get the bow! What did you do?",
 		"next": "narration_act2_scene1_h_2"
 	},
 	
 	"narration_act2_scene1_h_2": {
 		"type": "dialogue",
 		"speaker": "",
-		"text": "Kyle makes a finger gun, points it at a Macbeth poster on the wall, and shoots a small fireball at it. The poster goes up in flames.",
-		"next": "kyle_act2_scene1_h_7"
+		"text": "Kyle holds the fire in his hands. He feels a warmth run through his body as the fire becomes a part of him.",
+		"next": "kyle_act2_scene1_h_5"
 	},
 	
-	"kyle_act2_scene1_h_7": {
+	"kyle_act2_scene1_h_5": {
+		"type": "dialogue",
+		"speaker": "Kyle",
+		"text": "It feels so warm.",
+		"next": "narration_act2_scene1_h_3"
+	},
+	
+	"narration_act2_scene1_h_3": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "Kyle focuses on his hand, and a small fireball appears. He makes a finger gun, points it at a Macbeth poster on the wall, and shoots the fireball at it. The poster goes up in flames.",
+		"next": "kyle_act2_scene1_h_6"
+	},
+	
+	"kyle_act2_scene1_h_6": {
 		"type": "dialogue",
 		"speaker": "Kyle",
 		"text": "Woah.",
@@ -352,10 +394,10 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "Zach",
 		"text": "You have fire magic?",
-		"next": "kyle_act2_scene1_h_8"
+		"next": "kyle_act2_scene1_h_7"
 	},
 	
-	"kyle_act2_scene1_h_8": {
+	"kyle_act2_scene1_h_7": {
 		"type": "dialogue",
 		"speaker": "Kyle",
 		"text": "I have fire magic!",
@@ -366,41 +408,55 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "Jayce",
 		"text": "Dude, that's so cool!",
-		"next": "narrator_act2_scene1_h_3"
-	},
-	
-	"narrator_act2_scene1_h_3": {
-		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": "How are you supposed to kill a dragon with fire? It's a dragon!",
 		"next": "narrator_act2_scene1_h_4"
 	},
 	
 	"narrator_act2_scene1_h_4": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "*groans*",
+		"text": "How are you supposed to kill a dragon with fire? It's a dragon!",
+		"next": "kyle_act2_scene1_h_8"
+	},
+	
+	"kyle_act2_scene1_h_8": {
+		"type": "dialogue",
+		"speaker": "Kyle",
+		"text": "Fight fire with fire, I guess?",
 		"next": "narrator_act2_scene1_h_5"
 	},
 	
 	"narrator_act2_scene1_h_5": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "Ok. It's not too late to get back on track. I guess I can work with this.",
-		"next": "narration_act2_scene1_h_3"
-	},
-	
-	"narration_act2_scene1_h_3": {
-		"type": "dialogue",
-		"speaker": "",
-		"text": "The Narrator opens a portal.",
+		"text": "*groans*",
 		"next": "narrator_act2_scene1_h_6"
 	},
 	
 	"narrator_act2_scene1_h_6": {
 		"type": "dialogue",
 		"speaker": "The Narrator",
-		"text": "It's time for your second quest.",
+		"text": "Ok, ok. We can still follow the script from here.",
+		"next": "narrator_act2_scene1_h_7"
+	},
+	
+	"narrator_act2_scene1_h_7": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "This is fine.",
+		"next": "narration_act2_scene1_h_4"
+	},
+	
+	"narration_act2_scene1_h_4": {
+		"type": "dialogue",
+		"speaker": "",
+		"text": "The Narrator opens a portal.",
+		"next": "narrator_act2_scene1_h_8"
+	},
+	
+	"narrator_act2_scene1_h_8": {
+		"type": "dialogue",
+		"speaker": "The Narrator",
+		"text": "Ah-hem. It's time for your second quest.",
 		"next": "act2_scene1_h_portal"
 	},
 	
