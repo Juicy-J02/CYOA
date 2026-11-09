@@ -10,3 +10,12 @@ func _ready():
 		return
 
 	StoryManager.start_story("act1_scene1_background")
+
+# Escape goes back to the main menu. The story autosaves at every line, so Continue picks up
+# right here.
+func _unhandled_input(event):
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+		# InputManager still hears clicks on the menu, and an unblocked click would advance
+		# the story (and its save) in the background. Continue and New Game unblock it again.
+		InputManager.input_blocked = true
+		get_tree().change_scene_to_file("res://Scenes/StartScreen.tscn")

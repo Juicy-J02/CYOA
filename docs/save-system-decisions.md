@@ -71,6 +71,15 @@ should change, it's in `end_game` in `storyManager.gd`.
 ### Game Over screen
 It offers **Retry Last Choice**, **Restart from Beginning** and **Main Menu**. Retry is hidden if no choice was ever made.
 
+## Escape returns to the main menu
+Pressing **Escape** during the story goes back to the start screen (`_unhandled_input` in `main.gd`).
+Nothing extra is saved, because the story already autosaved at the current line, so **Continue** picks up right there.
+- **Why a key and not an on-screen button:** `inputManager.gd` advances the story on every left click, including
+  clicks on buttons, so an in-story button would also skip a line (see "Still open"). A key press doesn't count as a click.
+- **Story clicks are blocked when leaving.** InputManager is an autoload, so it still hears clicks on the start screen.
+  Without blocking them, clicking Continue would first advance the story (and overwrite the save) behind the menu.
+  Continue and New Game unblock clicks again when the story resumes.
+
 ## Earlier decisions this depends on
 - **One project-wide theme** (`Themes/mainTheme.tres`, set in Project Settings). Every screen gets the same look automatically.
 - **The game opens on `StartScreen.tscn`.** "New Game" goes to `Main.tscn`.
@@ -80,7 +89,7 @@ It offers **Retry Last Choice**, **Restart from Beginning** and **Main Menu**. R
   style is `MainMenuButton`, not `MenuButton`, because Godot already has a node type called `MenuButton`.
 
 ## Still open
-- **In-story menu:** needs `inputManager.gd` to use `_unhandled_input` instead of `_input`, otherwise clicking any
+- **On-screen menu button in the story:** Escape covers getting back to the menu for now. A clickable button needs `inputManager.gd` to use `_unhandled_input` instead of `_input`, otherwise clicking any
   in-story button also advances the dialog. It also needs the dialog box's Panel, RichTextLabel and NamePlate
   set to Mouse Filter: Ignore. It changes how input works for the whole game, so it needs team agreement.
 - **A confirmation before New Game replaces an existing save.**
