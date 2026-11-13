@@ -5,7 +5,7 @@ static func get_nodes() -> Dictionary:
 	return {
 	"act2_scene1_background": {
 		"type": "background",
-		"background": "",
+		"background": "res://Assets/Backgrounds/DressingRoom.jpg",
 		"next": "narration_act2_scene1_0"
 	},
 	
@@ -13,6 +13,13 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "",
 		"text": "Zach, Kyle, and Jayce step through the portal.",
+		"next": "friends_3"
+	},
+	
+	"friends_3": {
+		"type": "character",
+		"character": "res://Assets/Characters/meet_friends.png",
+		"position": {"x": 700, "y": 425},
 		"next": "narrator_act2_scene1_0"
 	},
 	
@@ -111,22 +118,22 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "The Rogue looked down at the pile of wigs when one caught his attention. The red wig. About shoulder length.",
-		"next": "narrator_act2_scene1_8"
-	},
-	
-	"narrator_act2_scene1_8": {
-		"type": "dialogue",
-		"speaker": "The Narrator",
-		"text": "He wondered what he'd look like with hair like that for a moment before remembering the school's dress code.",
-		"next": "kyle_act2_scene1_3"
-	},
-	
-	"kyle_act2_scene1_3": {
-		"type": "dialogue",
-		"speaker": "Kyle",
-		"text": "DID YOU SHAVE ME?",
 		"next": "narrator_act2_scene1_9"
 	},
+	
+	#"narrator_act2_scene1_8": {
+		#"type": "dialogue",
+		#"speaker": "The Narrator",
+		#"text": "He wondered what he'd look like with hair like that for a moment before remembering the school's dress code.",
+		#"next": "kyle_act2_scene1_3"
+	#},
+	#
+	#"kyle_act2_scene1_3": {
+		#"type": "dialogue",
+		#"speaker": "Kyle",
+		#"text": "DID YOU SHAVE ME?",
+		#"next": "narrator_act2_scene1_9"
+	#},
 	
 	"narrator_act2_scene1_9": {
 		"type": "dialogue",
@@ -146,6 +153,19 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "The Hero saw him struggling with this and decided to help.",
+		"next": "wig_background"
+	},
+	
+	"wig_background": {
+		"type": "background",
+		"background": "",
+		"next": "wig_browsing"
+	},
+	
+	"wig_browsing": {
+		"type": "character",
+		"character": "res://Assets/Scenes/wig_browsing.png",
+		"position": {"x": 640, "y": 360},
 		"next": "wig_choice"
 	},
 	
@@ -154,13 +174,26 @@ static func get_nodes() -> Dictionary:
 		"choices": [
 			{
 				"text": "Stay in uniform",
-				"next": "zach_act2_scene1_u_0"
+				"next": "act2_scene1_u_background"
 			},
 			{
 				"text": "Experiment",
-				"next": "zach_act2_scene1_h_0"
+				"next": "act2_scene1_h_background"
 			}
 		]
+	},
+	
+	"act2_scene1_u_background": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/DressingRoom.jpg",
+		"next": "friends_3_1"
+	},
+	
+	"friends_3_1": {
+		"type": "character",
+		"character": "res://Assets/Characters/meet_friends.png",
+		"position": {"x": 700, "y": 425},
+		"next": "zach_act2_scene1_u_0"
 	},
 	
 	"zach_act2_scene1_u_0": {
@@ -223,6 +256,13 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "Suddenly, a beautiful bow and arrow appeared before him.",
+		"next": "bow"
+	},
+	
+	"bow": {
+		"type": "character",
+		"character": "res://Assets/bow.png",
+		"position": {"x": 800, "y": 425},
 		"next": "narration_act2_scene1_u_0"
 	},
 	
@@ -271,6 +311,12 @@ static func get_nodes() -> Dictionary:
 		]
 	},
 	
+	"act2_scene1_h_background": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/DressingRoom.jpg",
+		"next": "zach_act2_scene1_h_0"
+	},
+	
 	"zach_act2_scene1_h_0": {
 		"type": "dialogue",
 		"speaker": "Zach",
@@ -282,6 +328,19 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "What?",
+		"next": "wig_on"
+	},
+	
+	"wig_on": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/DressingRoom.jpg",
+		"next": "wig"
+	},
+	
+	"wig": {
+		"type": "character",
+		"character": "res://Assets/Characters/kyle_with_wig.png",
+		"position": {"x": 700, "y": 450},
 		"next": "kyle_act2_scene1_h_0"
 	},
 	
@@ -338,6 +397,13 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "",
 		"text": "Suddenly, a small bright fire appears in the air in front of Kyle.",
+		"next": "fire"
+	},
+	
+	"fire": {
+		"type": "character",
+		"character": "res://Assets/flame.png",
+		"position": {"x": 550, "y": 375},
 		"next": "narrator_act2_scene1_h_2"
 	},
 	
@@ -465,7 +531,7 @@ static func get_nodes() -> Dictionary:
 		"choices": [
 			{
 				"text": "Go through the portal",
-				"next": "act2_scene2_h_background"
+				"next": "act2_scene2_u_background"
 			}
 		]
 	},

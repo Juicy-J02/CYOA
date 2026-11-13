@@ -5,7 +5,7 @@ static func get_nodes() -> Dictionary:
 	return {
 	"act2_scene2_u_background": {
 		"type": "background",
-		"background": "",
+		"background": "res://Assets/Backgrounds/Diner.jpg",
 		"next": "narrator_act2_scene2_u_0"
 	},
 	
@@ -13,6 +13,13 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "The Hero and his friends went through the portal and found themselves in their favorite restaurant.",
+		"next": "friends_4"
+	},
+	
+	"friends_4": {
+		"type": "character",
+		"character": "res://Assets/Characters/meet_friends.png",
+		"position": {"x": 700, "y": 425},
 		"next": "narrator_act2_scene2_u_1"
 	},
 	
@@ -111,6 +118,13 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "",
 		"text": "Kyle offers Jayce the red scarf.",
+		"next": "scarf"
+	},
+	
+	"scarf": {
+		"type": "character",
+		"character": "res://Assets/scarf.png",
+		"position": {"x": 575, "y": 375},
 		"next": "jayce_act2_scene2_u_3"
 	},
 	
@@ -362,6 +376,19 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "The Cleric puts down the red scarf.",
+		"next": "act2_scene2_ue_background"
+	},
+	
+	"act2_scene2_ue_background": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/Diner.jpg",
+		"next": "friends_5"
+	},
+	
+	"friends_5": {
+		"type": "character",
+		"character": "res://Assets/Characters/meet_friends.png",
+		"position": {"x": 700, "y": 425},
 		"next": "narrator_act2_scene2_ue_4"
 	},
 	
@@ -369,6 +396,13 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "The Narrator",
 		"text": "Suddenly, a beautiful shield appeared before him. He took the shield.",
+		"next": "sheild"
+	},
+	
+	"sheild": {
+		"type": "character",
+		"character": "res://Assets/shield.png",
+		"position": {"x": 575, "y": 375},
 		"next": "jayce_act2_scene2_ue_4"
 	},
 	
@@ -620,6 +654,19 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "",
 		"text": "Jayce puts on the red scarf.",
+		"next": "act2_scene2_uf_background"
+	},
+	
+	"act2_scene2_uf_background": {
+		"type": "background",
+		"background": "res://Assets/Backgrounds/Diner.jpg",
+		"next": "friends_6"
+	},
+	
+	"friends_6": {
+		"type": "character",
+		"character": "res://Assets/Characters/meet_friends.png",
+		"position": {"x": 700, "y": 425},
 		"next": "narration_act2_scene2_uf_1"
 	},
 	
@@ -627,6 +674,13 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "",
 		"text": "Suddenly, a small bright fire appears in the air in front of Jayce.",
+		"next": "fire_2"
+	},
+	
+	"fire_2": {
+		"type": "character",
+		"character": "res://Assets/flame.png",
+		"position": {"x": 425, "y": 250},
 		"next": "narration_act2_scene2_uf_2"
 	},
 	

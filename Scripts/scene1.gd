@@ -82,7 +82,7 @@ static func get_nodes() -> Dictionary:
 	"think": {
 		"type": "character",
 		"character": "res://Assets/Characters/mc_ponder.png",
-		"position": {"x": 565, "y": 350},
+		"position": {"x": 580, "y": 400},
 		"next": "sneak_out"
 	},
 	
@@ -102,14 +102,14 @@ static func get_nodes() -> Dictionary:
 	
 	"back_door_background": {
 		"type": "background",
-		"background": "res://Assets/Scenes/out_door.png",
+		"background": "",
 		"next": "backdoor"
 	},
 	
 	"backdoor": {
 		"type": "character",
 		"character": "res://Assets/Scenes/out_door.png",
-		"position": {"x": 565, "y": 350},
+		"position": {"x": 640, "y": 360},
 		"next": "zach_act1_scene1_4"
 	},
 	
@@ -143,7 +143,7 @@ static func get_nodes() -> Dictionary:
 	"window": {
 		"type": "character",
 		"character": "res://Assets/Scenes/out_window.png",
-		"position": {"x": 500, "y": 325},
+		"position": {"x": 640, "y": 360},
 		"next": "zach_act1_scene1_6"
 	},
 	

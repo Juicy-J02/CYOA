@@ -12,7 +12,7 @@ static func get_nodes() -> Dictionary:
 	"structure": {
 		"type": "character",
 		"character": "res://Assets/Scenes/statue.png",
-		"position": {"x": 700, "y": 400},
+		"position": {"x": 850, "y": 475},
 		"next": "investigate_structure"
 	},
 	
@@ -248,6 +248,13 @@ static func get_nodes() -> Dictionary:
 		"type": "dialogue",
 		"speaker": "",
 		"text": "The Narrator grabs Zach's right hand and casts a spell on it. Zach looks down in shock. His scar is gone.",
+		"next": "scar_gone"
+	},
+	
+	"scar_gone": {
+		"type": "character",
+		"character": "res://Assets/Characters/scar_gone.png",
+		"position": {"x": 400, "y": 475},
 		"next": "zach_act1_scene3_5"
 	},
 	

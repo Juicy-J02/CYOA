@@ -9,7 +9,7 @@ func _ready():
 		StoryManager.continue_story(state)
 		return
 
-	StoryManager.start_story("act1_scene1_background")
+	StoryManager.start_story("act2_scene1_background")
 
 # Escape goes back to the main menu. The story autosaves at every line, so Continue picks up
 # right here.
