@@ -303,6 +303,7 @@ static func get_nodes() -> Dictionary:
 	
 	"act2_scene1_u_portal": {
 		"type": "choice",
+		"map": "Second Quest Portal",
 		"choices": [
 			{
 				"text": "Go through the portal",
@@ -528,6 +529,7 @@ static func get_nodes() -> Dictionary:
 	
 	"act2_scene1_h_portal": {
 		"type": "choice",
+		"map": "Second Quest Portal",
 		"choices": [
 			{
 				"text": "Go through the portal",

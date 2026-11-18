@@ -1,11 +1,10 @@
 # Save System: Decisions
 
-This lists the decisions made while building saving, Continue and Retry Last Choice, why each was
+This lists the decisions made while building saving, Continue, Retry Last Choice and the Story Map, why each was
 made, and what it means for the rest of the team. The "Rules for writers" section at the end is the
 short version for anyone editing the scene files (`scene1.gd`, `scene2.gd`, ...).
 
-This is the demo version of the save system. Progress tracking (a Progress screen of choices and
-endings found) and story flags are being worked on separately and aren't included here.
+Story flags (story entries that read earlier choices) are being worked on separately and aren't included here.
 
 ## Saving
 
@@ -74,6 +73,46 @@ should change, it's in `end_game` in `storyManager.gd`.
 ### Game Over screen
 It offers **Retry Last Choice**, **Restart from Beginning** and **Main Menu**. Retry is hidden if no choice was ever made.
 
+## Story Map
+
+The start screen's **Story Map** button opens a branching tree of the story (Test Plan R11). Choices are
+cards listing their options, lines run from each option to where it leads, and endings are the rounded
+cards at the tips. Anything not found yet shows as "???", and the header counts choices explored and
+endings found.
+
+### Built from the story data
+`Scripts/storyMap.gd` (`StoryMap.build`) reads the story and works out which choices and endings exist and
+what each option leads to, following `"next"` through dialogue and art. New choices and endings appear on
+the map automatically. Only story reachable from the start counts, so cut or unfinished content doesn't
+inflate the totals.
+
+### Copies of the same choice are one entry: the `"map"` tag
+The story repeats some choices on different paths (for example "Ex or Friends" after either wig option).
+Giving those copies the same `"map"` name makes the map show them as **one** choice, and an option found on
+either path counts for both. The name is also the choice's title on the map; without one, the title comes
+from the id (`sneak_out` → "Sneak Out").
+**Why a tag instead of story flags:** it needs one optional line per copy and no change to how the story
+is structured. If the team adopts story flags later, the copies merge into single entries and the tags
+can be removed.
+
+### Endings are named with an `"ending"` field
+An ending is the last line before `end_game`. Its `"ending"` field is its title on the map
+("Caught by Dad"). Without one, the title comes from the id.
+
+### Progress is kept separately from the save
+`user://progress.cfg` records the choices reached, options picked (by their button text, so copies match)
+and endings found. **New Game never clears it**, so the map fills up across playthroughs. Like the save, a
+damaged progress file is skipped instead of crashing. `SaveManager.delete_progress()` resets it (there's
+no button for that yet).
+**Impact:** renaming a `"map"` name, an option's text or an ending's id makes that part of the map show
+as not found again for players who already found it.
+
+### Moving around the map
+The story runs left to right, so the map scrolls sideways: drag, use the mouse wheel, or the scrollbar.
+Options that loop back to the same choice (the prophecy questions) show ↺ instead of a line. **Escape**
+or **Back** returns to the start screen. Colors and fonts are in `mainTheme.tres` as `MapCard`,
+`MapEnding`, `MapTitle` and `MapOption`.
+
 ## Escape returns to the main menu
 Pressing **Escape** during the story goes back to the start screen (`_unhandled_input` in `main.gd`).
 Nothing extra is saved, because the story already autosaved at the current line, so **Continue** picks up right there.
@@ -104,3 +143,6 @@ Nothing extra is saved, because the story already autosaved at the current line,
 1. **Renaming an entry** sends any save sitting on it back to a new game, so avoid renaming lines once people are playing.
 2. **Any `"next"` must point to an entry that exists**, or the game shows "Story node not found" and stops at that line.
 3. **Ids must be unique across all scene files.** If two files use the same id, the later one is silently dropped.
+4. **Copying a choice onto another path?** Give every copy the same `"map": "Name"` so the Story Map shows it once.
+   The copies' options need the same button text to count as the same option.
+5. **Writing a new ending?** Add `"ending": "Title"` to the last line before `end_game` to name it on the Story Map.

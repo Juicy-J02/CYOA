@@ -68,3 +68,81 @@ func clean_state(raw):
 func delete_save():
 	if has_save():
 		DirAccess.remove_absolute(SAVE_PATH)
+
+# --- Story map progress (kept across playthroughs; New Game never clears it) ---
+#
+# Progress is stored by map group (see StoryMap.group_key), so copies of the same choice on
+# different paths count as one. Options are stored by their button text for the same reason:
+# the copies lead to different story ids but say the same thing.
+
+const PROGRESS_PATH = "user://progress.cfg"
+
+var groups_seen = {}     # group key -> true
+var options_picked = {}  # "group key>option text" -> true
+var endings_found = {}   # id of the line before end_game -> true
+
+func _ready():
+	load_progress()
+
+func mark_group_seen(group):
+	if groups_seen.has(group):
+		return
+	groups_seen[group] = true
+	save_progress()
+
+func has_seen_group(group):
+	return groups_seen.has(group)
+
+func record_option(group, option_text):
+	var key = group + ">" + option_text
+	if options_picked.has(key):
+		return
+	options_picked[key] = true
+	save_progress()
+
+func has_picked_option(group, option_text):
+	return options_picked.has(group + ">" + option_text)
+
+func record_ending(ending_id):
+	if endings_found.has(ending_id):
+		return
+	endings_found[ending_id] = true
+	save_progress()
+
+func has_found_ending(ending_id):
+	return endings_found.has(ending_id)
+
+func save_progress():
+	var config = ConfigFile.new()
+	config.set_value("progress", "groups", groups_seen.keys())
+	config.set_value("progress", "options", options_picked.keys())
+	config.set_value("progress", "endings", endings_found.keys())
+	config.save(PROGRESS_PATH)
+
+# Like load_game, a damaged progress file never crashes: anything unreadable is skipped.
+func load_progress():
+	groups_seen = {}
+	options_picked = {}
+	endings_found = {}
+	var config = ConfigFile.new()
+	if config.load(PROGRESS_PATH) != OK:
+		return
+	groups_seen = read_keys(config, "groups")
+	options_picked = read_keys(config, "options")
+	endings_found = read_keys(config, "endings")
+
+func read_keys(config, key):
+	var out = {}
+	var list = config.get_value("progress", key, [])
+	if list is Array:
+		for item in list:
+			if item is String:
+				out[item] = true
+	return out
+
+func delete_progress():
+	groups_seen = {}
+	options_picked = {}
+	endings_found = {}
+	if FileAccess.file_exists(PROGRESS_PATH):
+		DirAccess.remove_absolute(PROGRESS_PATH)

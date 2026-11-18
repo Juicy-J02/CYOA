@@ -41,7 +41,7 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1659689058]
 layout_mode = 2
-theme_override_constants/separation = 28
+theme_override_constants/separation = 22
 
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1437227967]
 layout_mode = 2
@@ -50,7 +50,7 @@ label_settings = SubResource("LabelSettings_vau3p")
 horizontal_alignment = 1
 
 [node name="Statue" type="TextureRect" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(440, 263)
+custom_minimum_size = Vector2(370, 221)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_statue")
@@ -60,7 +60,7 @@ stretch_mode = 5
 [node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1257942670]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 
 [node name="ContinueButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
@@ -74,6 +74,12 @@ theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 34
 text = "New Game"
 
+[node name="MapButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 34
+text = "Story Map"
+
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
@@ -82,4 +88,5 @@ text = "Quit"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/MapButton" to="." method="_on_map_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]

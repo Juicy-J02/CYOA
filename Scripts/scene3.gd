@@ -295,6 +295,7 @@ static func get_nodes() -> Dictionary:
 	
 	"portal_walk_away": {
 		"type": "dialogue",
+		"ending": "Walked Away",
 		"speaker": "",
 		"text": "Zach turns his back on the portal. Behind him, a crack spreads across the statue. For tonight, at least, his future is his own.",
 		"next": "end_game"

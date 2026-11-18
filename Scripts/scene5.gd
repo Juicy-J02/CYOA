@@ -144,6 +144,7 @@ static func get_nodes() -> Dictionary:
 	
 	"act2_scene2_u_choice": {
 		"type": "choice",
+		"map": "Ex or Friends",
 		"choices": [
 			{
 				"text": "Go back to your Ex",
@@ -290,6 +291,7 @@ static func get_nodes() -> Dictionary:
 	
 	"act2_scene2_h_choice": {
 		"type": "choice",
+		"map": "Ex or Friends",
 		"choices": [
 			{
 				"text": "Go back to your Ex",
@@ -436,6 +438,7 @@ static func get_nodes() -> Dictionary:
 	
 	"act2_scene2_ue_portal": {
 		"type": "choice",
+		"map": "Third Quest Portal",
 		"choices": [
 			{
 				"text": "Go through the portal",
@@ -558,6 +561,7 @@ static func get_nodes() -> Dictionary:
 	
 	"act2_scene2_he_portal": {
 		"type": "choice",
+		"map": "Third Quest Portal",
 		"choices": [
 			{
 				"text": "Go through the portal",
@@ -770,6 +774,7 @@ static func get_nodes() -> Dictionary:
 	
 	"act2_scene2_uf_portal": {
 		"type": "choice",
+		"map": "Third Quest Portal",
 		"choices": [
 			{
 				"text": "Go through the portal",
@@ -962,6 +967,7 @@ static func get_nodes() -> Dictionary:
 	
 	"act2_scene2_hf_portal": {
 		"type": "choice",
+		"map": "Third Quest Portal",
 		"choices": [
 			{
 				"text": "Go through the portal",
@@ -972,6 +978,7 @@ static func get_nodes() -> Dictionary:
 	
 	"end_act2": {
 		"type": "dialogue",
+		"ending": "To Be Continued",
 		"speaker": "",
 		"text": "End Act 2",
 		"next": "end_game"

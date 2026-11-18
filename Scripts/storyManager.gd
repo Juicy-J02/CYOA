@@ -9,6 +9,9 @@ signal pause_request
 @onready var input_manager = $"../InputManager"
 
 var current_node_id = ""
+# The entry before the current one. When the story reaches end_game, this is the line that
+# led there, which identifies the ending on the story map.
+var previous_node_id = ""
 var story_data = StoryData.story_data
 
 # What's on screen right now, so a save can rebuild it.
@@ -50,6 +53,7 @@ func continue_story(save):
 	play_node(save.node_id)
 
 func play_node(node_id):
+	previous_node_id = current_node_id
 	current_node_id = node_id
 
 	if not story_data.has(node_id):
@@ -60,6 +64,7 @@ func play_node(node_id):
 
 	if node_data.type in SAVE_TYPES:
 		if node_data.type == "choice":
+			SaveManager.mark_group_seen(StoryMap.group_key(node_id, node_data))
 			# Record the choice before saving, so the save includes it. duplicate(true)
 			# copies the list, so characters added later don't change this snapshot.
 			last_choice = {
@@ -98,6 +103,12 @@ func play_next_node():
 	play_node(node_data.next)
 
 func choice_selected(next_node_id):
+	# current_node_id is still the choice here, since choices wait for the player.
+	var choice = story_data.get(current_node_id, {})
+	for option in choice.get("choices", []):
+		if option.next == next_node_id:
+			SaveManager.record_option(StoryMap.group_key(current_node_id, choice), option.text)
+			break
 	play_node(next_node_id)
 
 func play_dialogue(node_data):
@@ -127,6 +138,7 @@ func pause(_node_data):
 
 func end_game(_node_data):
 	InputManager.input_blocked = true
+	SaveManager.record_ending(previous_node_id)
 
 	# Keep a checkpoint at the last choice so players can come back and try another
 	# option, even after closing the game. With no choice made yet, there's nothing to keep.

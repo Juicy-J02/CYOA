@@ -21,6 +21,9 @@ func _on_start_button_pressed() -> void:
 	SaveManager.delete_save()
 	get_tree().change_scene_to_file("res://Scenes/Main.tscn")
 
+func _on_map_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/MapScreen.tscn")
+
 # The story autosaves at every line, so quitting loses nothing and Continue works next launch.
 func _on_quit_button_pressed():
 	get_tree().quit()
