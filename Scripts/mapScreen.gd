@@ -21,6 +21,8 @@ const DIM = Color(1, 1, 1, 0.42)
 @onready var count_label = $Margin/VBox/Header/CountLabel
 @onready var scroll = $Margin/VBox/Scroll
 @onready var canvas = $Margin/VBox/Scroll/Canvas
+@onready var back_button = $Margin/VBox/Footer/BackRow/BackButton
+@onready var back_marker = $Margin/VBox/Footer/BackRow/Marker
 
 var map = {}
 var cards = {}         # card id ("start", "g:<group>", "e:<ending>") -> card Control
@@ -32,6 +34,12 @@ var empty_hint = null  # shown next to Start before anything has been found
 
 func _ready():
 	map = StoryMap.build(StoryData.story_data, START_ID)
+	# Back looks and works like the start screen's menu: gold with a "›" while selected,
+	# hovering selects it, and it starts selected so Enter goes back.
+	back_button.focus_entered.connect(func(): back_marker.text = "›")
+	back_button.focus_exited.connect(func(): back_marker.text = "")
+	back_button.mouse_entered.connect(back_button.grab_focus)
+	back_button.grab_focus()
 	build_cards()
 	update_counts()
 	canvas.draw.connect(draw_lines)
