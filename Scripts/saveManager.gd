@@ -22,18 +22,47 @@ func save_game(node_id, background, characters, last_choice, checkpoint = false)
 	config.set_value("save", "checkpoint", checkpoint)
 	config.save(SAVE_PATH)
 
+# Returns {} when there's no usable save: a missing file, one that can't be read, or one
+# without a story position. Callers treat {} as "no save", so a damaged file never crashes.
 func load_game():
 	var config = ConfigFile.new()
 	var error = config.load(SAVE_PATH)
 	if error != OK:
 		return {}
 
-	return {
+	var state = clean_state({
 		"node_id": config.get_value("save", "node_id", ""),
 		"background": config.get_value("save", "background", ""),
 		"characters": config.get_value("save", "characters", []),
-		"last_choice": config.get_value("save", "last_choice", {}),
-		"checkpoint": config.get_value("save", "checkpoint", false),
+	})
+	if state.is_empty():
+		return {}
+
+	var last_choice = config.get_value("save", "last_choice", {})
+	state["last_choice"] = clean_state(last_choice) if last_choice is Dictionary else {}
+	var checkpoint = config.get_value("save", "checkpoint", false)
+	state["checkpoint"] = checkpoint if checkpoint is bool else false
+	return state
+
+# Keeps only the fields StoryManager.continue_story reads, with the right types. A wrong
+# background or a broken character entry is dropped; a missing story position means {}.
+func clean_state(raw):
+	var node_id = raw.get("node_id", "")
+	if not node_id is String or node_id == "":
+		return {}
+
+	var background = raw.get("background", "")
+	var characters = []
+	var raw_characters = raw.get("characters", [])
+	if raw_characters is Array:
+		for character in raw_characters:
+			if character is Dictionary and character.get("path") is String and character.get("position") is Vector2:
+				characters.append({"path": character.path, "position": character.position})
+
+	return {
+		"node_id": node_id,
+		"background": background if background is String else "",
+		"characters": characters,
 	}
 
 func delete_save():

@@ -33,7 +33,8 @@ func start_story(start_id):
 	play_node(start_id)
 
 func continue_story(save):
-	current_background = save.background
+	# A background that was renamed or removed since the save was made shows blank instead.
+	current_background = save.background if ResourceLoader.exists(save.background) else ""
 	current_characters = []
 	# A save carries its last choice; a retried choice doesn't, and re-records itself below.
 	last_choice = save.get("last_choice", {})

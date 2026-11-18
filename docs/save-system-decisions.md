@@ -48,9 +48,12 @@ Continue and Retry Last Choice put the state to resume from in `SaveManager.pend
 change to `Main.tscn`. `main.gd` reads it in `_ready()`, then clears it. If it's empty, a new story starts.
 **Why:** after a scene change, the new scene isn't loaded yet, so the button can't restore anything directly.
 
-### Protection against out-of-date saves
+### Protection against out-of-date and damaged saves
 - A save pointing at a story entry that no longer exists is ignored, and a new game starts.
-- Characters whose art file no longer exists are skipped when restoring.
+- Characters and backgrounds whose art file no longer exists are skipped when restoring.
+- **A damaged save never crashes the game** (Test Plan R6). `SaveManager.load_game()` returns `{}` for a file it
+  can't read or one without a story position, and the start screen then hides Continue. Fields with the wrong
+  type are dropped (`clean_state`), so a bad character entry or last choice is skipped and the rest still loads.
 
 **Why:** the team renames story entries (for example, `zach0` became `zach_act1_scene1_0`).
 **Impact:** renaming entries won't crash anyone's game, but a save sitting on a renamed line starts over.
@@ -82,7 +85,8 @@ Nothing extra is saved, because the story already autosaved at the current line,
 
 ## Earlier decisions this depends on
 - **One project-wide theme** (`Themes/mainTheme.tres`, set in Project Settings). Every screen gets the same look automatically.
-- **The game opens on `StartScreen.tscn`.** "New Game" goes to `Main.tscn`.
+- **The game opens on `StartScreen.tscn`.** "New Game" goes to `Main.tscn`. **"Quit"** closes the game (Test Plan
+  R10); nothing is lost because the story autosaves. It's hidden in web builds, where a game can't close its tab.
 - **`StoryManager.play_next_node` checks that the current entry exists**, and **`play_node` reports missing entries** with
   `push_error("Story node not found: ...")`. A broken `"next"` shows an error instead of freezing silently.
 - **Naming:** scripts in camelCase (`saveManager.gd`); autoloads in PascalCase (`SaveManager`); the menu button theme
