@@ -77,8 +77,13 @@ It offers **Retry Last Choice**, **Restart from Beginning** and **Main Menu**. R
 
 The start screen's **Story Map** button opens a branching tree of the story (Test Plan R11). Choices are
 cards listing their options, lines run from each option to where it leads, and endings are the rounded
-cards at the tips. Anything not found yet shows as "???", and the header counts choices explored and
-endings found.
+cards at the tips. The header counts choices explored and endings found.
+
+### The map builds as you play
+A choice appears once the player reaches it, an ending once they find it, and a line once they pick that
+option. Options not tried yet show "???" with no line, so the map never shows where the story goes before
+the player gets there. With nothing found, it shows Start and "Your map fills in as you play."
+**Why:** seeing the branches ahead would spoil the choices. The header's totals still show how much is left.
 
 ### Built from the story data
 `Scripts/storyMap.gd` (`StoryMap.build`) reads the story and works out which choices and endings exist and

@@ -2,7 +2,10 @@ extends Control
 
 # Draws the story map as a tree, left to right: each choice is a card with its options
 # listed under its title, lines run from each option to wherever it leads, and endings are
-# the rounded cards at the tips. Anything the player hasn't found yet shows as "???".
+# the rounded cards at the tips.
+# The map builds as you play: a choice appears once you've reached it, an ending once you've
+# found it, and a line once you've picked that option. Options you haven't tried show "???"
+# with no line, so the map never shows where the story goes before you get there.
 # The structure comes from StoryMap.build, so new story content appears automatically.
 
 const START_ID = "act1_scene1_background"
@@ -11,11 +14,8 @@ const COLUMN_GAP = 90
 const ROW_GAP = 22
 const EDGE = 16  # space around the whole map
 
-const FOUND_LINE = Color(0.75, 0.54, 0.26)
-# Solid rather than see-through, so overlapping lines don't get brighter where they cross.
-const HIDDEN_LINE = Color(0.17, 0.24, 0.30)
-const FOUND_WIDTH = 3.0
-const HIDDEN_WIDTH = 2.0
+const LINE_COLOR = Color(0.75, 0.54, 0.26)
+const LINE_WIDTH = 3.0
 const DIM = Color(1, 1, 1, 0.42)
 
 @onready var count_label = $Margin/VBox/Header/CountLabel
@@ -25,9 +25,10 @@ const DIM = Color(1, 1, 1, 0.42)
 var map = {}
 var cards = {}         # card id ("start", "g:<group>", "e:<ending>") -> card Control
 var option_rows = {}   # card id -> [option label, ...] in option order
-var children = {}      # card id -> [[option index, target card id, picked], ...]
+var children = {}      # card id -> [[option index, target card id], ...] for options picked
 var loops = {}         # "card id>option index" -> true for options that come back to their own choice
 var bar_x = {}         # card id -> x of the upright its lines branch from, halfway into the gap
+var empty_hint = null  # shown next to Start before anything has been found
 
 func _ready():
 	map = StoryMap.build(StoryData.story_data, START_ID)
@@ -47,13 +48,24 @@ func card_id(target):
 	return ("g:" if target.kind == "group" else "e:") + target.id
 
 func build_cards():
-	cards["start"] = make_ending_card("Start", true)
-	children["start"] = [[-1, card_id(map.start), true]]
+	# What the player has discovered: choices reached and endings found.
+	var discovered = {"start": true}
+	for key in map.order:
+		if SaveManager.has_seen_group(key):
+			discovered["g:" + key] = true
+	for ending_id in map.endings:
+		if SaveManager.has_found_ending(ending_id):
+			discovered["e:" + ending_id] = true
+
+	children["start"] = []
+	if discovered.has(card_id(map.start)):
+		children["start"].append([-1, card_id(map.start)])
 
 	for key in map.order:
 		var id = "g:" + key
+		if not discovered.has(id):
+			continue
 		var group = map.groups[key]
-		var seen = SaveManager.has_seen_group(key)
 		var card = PanelContainer.new()
 		card.theme_type_variation = "MapCard"
 		card.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -62,7 +74,7 @@ func build_cards():
 		card.add_child(box)
 		var title = Label.new()
 		title.theme_type_variation = "MapTitle"
-		title.text = group.title if seen else LOCKED
+		title.text = group.title
 		box.add_child(title)
 
 		option_rows[id] = []
@@ -73,30 +85,53 @@ func build_cards():
 			var row = Label.new()
 			row.theme_type_variation = "MapOption"
 			row.text = option.text if picked else LOCKED
-			for target in option.targets:
-				var target_id = card_id(target)
-				if target_id == id:
-					loops[id + ">" + str(i)] = true
-					if picked:
+			if picked:
+				for target in option.targets:
+					var target_id = card_id(target)
+					if target_id == id:
+						loops[id + ">" + str(i)] = true
 						row.text += "  ↺"
-				else:
-					children[id].append([i, target_id, picked])
-			if not picked:
+					elif discovered.has(target_id):
+						children[id].append([i, target_id])
+			else:
 				row.modulate = DIM
 			box.add_child(row)
 			option_rows[id].append(row)
 
-		if not seen:
-			card.modulate = DIM
 		canvas.add_child(card)
 		cards[id] = card
 
+	cards["start"] = make_ending_card("Start")
 	for ending_id in map.endings:
-		var found = SaveManager.has_found_ending(ending_id)
-		var text = "★  " + (map.endings[ending_id].title if found else LOCKED)
-		cards["e:" + ending_id] = make_ending_card(text, found)
+		if discovered.has("e:" + ending_id):
+			cards["e:" + ending_id] = make_ending_card("★  " + map.endings[ending_id].title)
 
-func make_ending_card(text, found):
+	# Only keep what the player's picks connect back to the start. (Progress saved before a
+	# story change can name a choice the picks no longer lead to.)
+	var connected = {}
+	var todo = ["start"]
+	while not todo.is_empty():
+		var id = todo.pop_back()
+		if connected.has(id) or not cards.has(id):
+			continue
+		connected[id] = true
+		for pair in children.get(id, []):
+			todo.append(pair[1])
+	for id in cards.keys():
+		if not connected.has(id):
+			cards[id].queue_free()
+			cards.erase(id)
+			children.erase(id)
+			option_rows.erase(id)
+
+	# Nothing found yet: say how the map works instead of showing a lone Start card.
+	if cards.size() == 1:
+		empty_hint = Label.new()
+		empty_hint.modulate = DIM
+		empty_hint.text = "Your map fills in as you play."
+		canvas.add_child(empty_hint)
+
+func make_ending_card(text):
 	var card = PanelContainer.new()
 	card.theme_type_variation = "MapEnding"
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -104,8 +139,6 @@ func make_ending_card(text, found):
 	label.theme_type_variation = "MapTitle"
 	label.text = text
 	card.add_child(label)
-	if not found:
-		card.modulate = DIM
 	canvas.add_child(card)
 	return card
 
@@ -157,6 +190,12 @@ func layout():
 		for id in cards:
 			cards[id].position.y += spare / 2
 		size_needed.y = scroll.size.y
+
+	if empty_hint:
+		var start = cards["start"]
+		var hint_size = empty_hint.get_combined_minimum_size()
+		empty_hint.position = start.position + Vector2(start.size.x + 30, (start.size.y - hint_size.y) / 2)
+		size_needed.x = max(size_needed.x, empty_hint.position.x + hint_size.x + EDGE)
 	canvas.custom_minimum_size = size_needed
 
 func place_depth(id, d, on_path, depth):
@@ -266,13 +305,10 @@ func entry_y(card, line_y):
 # Each line runs straight out of its option to an upright halfway into the gap, along the
 # upright, then straight into the card it leads to. A choice's lines share one upright, so
 # branches fan out like a goalpost, and options leading to the same place join on it.
-# Hidden lines are drawn first so found ones sit on top where they overlap.
 func draw_lines():
 	# The canvas can draw once before layout() has run; there are no lines to draw yet.
 	if bar_x.is_empty():
 		return
-	var hidden = []
-	var found = []
 	for id in children:
 		# Options of one card that lead to the same place share an entry point, so their
 		# lines join on the upright instead of entering side by side.
@@ -287,11 +323,7 @@ func draw_lines():
 				entries[pair[1]] = entry_y(target, from.y)
 			var to = Vector2(target.position.x, entries[pair[1]])
 			var path = [from, to] if is_equal_approx(from.y, to.y) else [from, Vector2(bar_x[id], from.y), Vector2(bar_x[id], to.y), to]
-			(found if pair[2] else hidden).append(path)
-	for path in hidden:
-		draw_path(path, HIDDEN_LINE, HIDDEN_WIDTH)
-	for path in found:
-		draw_path(path, FOUND_LINE, FOUND_WIDTH)
+			draw_path(path, LINE_COLOR, LINE_WIDTH)
 
 func draw_path(points, color, width):
 	for i in points.size() - 1:
