@@ -6,8 +6,9 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_vau3p"]
 font = ExtResource("1_ko4ly")
-font_size = 55
+font_size = 58
 font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+line_spacing = -6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_statue"]
 atlas = ExtResource("2_statue")
@@ -31,62 +32,116 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0023115394, 0.09450216, 0.1862413, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1584097762]
+[node name="Split" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1659689058]
+[node name="ArtSide" type="CenterContainer" parent="Split"]
 layout_mode = 2
-theme_override_constants/separation = 22
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.15
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1437227967]
+[node name="Statue" type="TextureRect" parent="Split/ArtSide"]
+custom_minimum_size = Vector2(580, 347)
 layout_mode = 2
-text = "The Tale of Zachary Davis"
-label_settings = SubResource("LabelSettings_vau3p")
-horizontal_alignment = 1
-
-[node name="Statue" type="TextureRect" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(370, 221)
-layout_mode = 2
-size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_statue")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1257942670]
+[node name="MenuSide" type="MarginContainer" parent="Split"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 8
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 60
 
-[node name="ContinueButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+[node name="Menu" type="VBoxContainer" parent="Split/MenuSide"]
 layout_mode = 2
-theme_type_variation = &"MainMenuButton"
-theme_override_font_sizes/font_size = 34
+size_flags_vertical = 4
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Split/MenuSide/Menu" unique_id=1437227967]
+layout_mode = 2
+text = "The Tale of
+Zachary Davis"
+label_settings = SubResource("LabelSettings_vau3p")
+
+[node name="Divider" type="ColorRect" parent="Split/MenuSide/Menu"]
+custom_minimum_size = Vector2(110, 4)
+layout_mode = 2
+size_flags_horizontal = 0
+color = Color(0.6313726, 0.44313726, 0.2, 1)
+
+[node name="Spacer" type="Control" parent="Split/MenuSide/Menu"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+
+[node name="Items" type="VBoxContainer" parent="Split/MenuSide/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ContinueRow" type="HBoxContainer" parent="Split/MenuSide/Menu/Items"]
+layout_mode = 2
+
+[node name="Marker" type="Label" parent="Split/MenuSide/Menu/Items/ContinueRow"]
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+theme_type_variation = &"MenuMarker"
+
+[node name="ContinueButton" type="Button" parent="Split/MenuSide/Menu/Items/ContinueRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MenuTextButton"
 text = "Continue"
 
-[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer" unique_id=2074418257]
+[node name="StartRow" type="HBoxContainer" parent="Split/MenuSide/Menu/Items"]
 layout_mode = 2
-theme_type_variation = &"MainMenuButton"
-theme_override_font_sizes/font_size = 34
+
+[node name="Marker" type="Label" parent="Split/MenuSide/Menu/Items/StartRow"]
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+theme_type_variation = &"MenuMarker"
+
+[node name="StartButton" type="Button" parent="Split/MenuSide/Menu/Items/StartRow" unique_id=2074418257]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MenuTextButton"
 text = "New Game"
 
-[node name="MapButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+[node name="MapRow" type="HBoxContainer" parent="Split/MenuSide/Menu/Items"]
 layout_mode = 2
-theme_type_variation = &"MainMenuButton"
-theme_override_font_sizes/font_size = 34
+
+[node name="Marker" type="Label" parent="Split/MenuSide/Menu/Items/MapRow"]
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+theme_type_variation = &"MenuMarker"
+
+[node name="MapButton" type="Button" parent="Split/MenuSide/Menu/Items/MapRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MenuTextButton"
 text = "Story Map"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+[node name="QuitRow" type="HBoxContainer" parent="Split/MenuSide/Menu/Items"]
 layout_mode = 2
-theme_type_variation = &"MainMenuButton"
-theme_override_font_sizes/font_size = 34
+
+[node name="Marker" type="Label" parent="Split/MenuSide/Menu/Items/QuitRow"]
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+theme_type_variation = &"MenuMarker"
+
+[node name="QuitButton" type="Button" parent="Split/MenuSide/Menu/Items/QuitRow"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+theme_type_variation = &"MenuTextButton"
 text = "Quit"
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/MapButton" to="." method="_on_map_button_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Split/MenuSide/Menu/Items/ContinueRow/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Split/MenuSide/Menu/Items/StartRow/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Split/MenuSide/Menu/Items/MapRow/MapButton" to="." method="_on_map_button_pressed"]
+[connection signal="pressed" from="Split/MenuSide/Menu/Items/QuitRow/QuitButton" to="." method="_on_quit_button_pressed"]
