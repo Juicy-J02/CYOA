@@ -120,7 +120,9 @@ or **Back** returns to the start screen. Colors and fonts are in `mainTheme.tres
 
 ## Start screen layouts
 
-There are three start screen layouts to compare, each its own scene in `Scenes/StartScreens/`:
+**The game uses Split (C).** It gives the statue the most room, and the text menu with its gold marker is
+the easiest to scan. The other two layouts are kept so they can be compared or switched back to later.
+Each layout is its own scene in `Scenes/StartScreens/`:
 
 | Layout | Scene | Look |
 |---|---|---|
