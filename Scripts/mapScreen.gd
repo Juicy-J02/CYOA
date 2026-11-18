@@ -12,7 +12,10 @@ const ROW_GAP = 22
 const EDGE = 16  # space around the whole map
 
 const FOUND_LINE = Color(0.75, 0.54, 0.26)
-const HIDDEN_LINE = Color(0.93, 0.9, 0.83, 0.18)
+# Solid rather than see-through, so overlapping lines don't get brighter where they cross.
+const HIDDEN_LINE = Color(0.17, 0.24, 0.30)
+const FOUND_WIDTH = 3.0
+const HIDDEN_WIDTH = 2.0
 const DIM = Color(1, 1, 1, 0.42)
 
 @onready var count_label = $Margin/VBox/Header/CountLabel
@@ -24,6 +27,7 @@ var cards = {}         # card id ("start", "g:<group>", "e:<ending>") -> card Co
 var option_rows = {}   # card id -> [option label, ...] in option order
 var children = {}      # card id -> [[option index, target card id, picked], ...]
 var loops = {}         # "card id>option index" -> true for options that come back to their own choice
+var bar_x = {}         # card id -> x of the upright its lines branch from, halfway into the gap
 
 func _ready():
 	map = StoryMap.build(StoryData.story_data, START_ID)
@@ -106,8 +110,8 @@ func make_ending_card(text, found):
 	return card
 
 # Columns: each card sits one column right of the furthest card that leads to it, so the
-# story always reads left to right. Rows: a card's first child lines up with it, and later
-# children stack below, which keeps each branch together.
+# story always reads left to right. Rows: a card stays level with the card before it when the
+# incoming line can enter it straight, and later branches stack below.
 func layout():
 	var depth = {}
 	place_depth("start", 0, {}, depth)
@@ -123,6 +127,10 @@ func layout():
 	for column in range(column_width.size()):
 		column_x[column] = x
 		x += column_width.get(column, 0.0) + COLUMN_GAP
+
+	for id in cards:
+		var column = depth.get(id, 0)
+		bar_x[id] = column_x[column] + column_width[column] + COLUMN_GAP / 2.0
 
 	var column_bottom = {}
 	place_rows("start", EDGE, depth, column_x, column_bottom, {})
@@ -160,42 +168,69 @@ func place_rows(id, y, depth, column_x, column_bottom, placed):
 	card.position = Vector2(column_x[column], y)
 	column_bottom[column] = y + card.size.y + ROW_GAP
 	for pair in children.get(id, []):
-		place_rows(pair[1], y, depth, column_x, column_bottom, placed)
+		if cards.has(pair[1]):
+			# Keep the next card level with this one, unless the line would miss its side;
+			# then lower it just enough for the line to go straight in.
+			var line_y = y + exit_offset(id, pair[0])
+			var target = cards[pair[1]]
+			var pad = entry_pad(target)
+			var level = clamp(y, line_y - target.size.y + pad, line_y - pad)
+			place_rows(pair[1], level, depth, column_x, column_bottom, placed)
 
+# How far down a card its line leaves: level with the option, or the middle of a pill card.
+func exit_offset(id, option_index):
+	if option_index < 0:
+		return cards[id].size.y / 2
+	var row = option_rows[id][option_index]
+	return row.global_position.y - cards[id].global_position.y + row.size.y / 2
+
+# Lines enter a card anywhere along its left side, but no closer than this to a corner.
+# Endings are short pills, so their lines always enter in the middle.
+func entry_pad(card):
+	return min(22.0, card.size.y / 2)
+
+# Where a line at height line_y enters a card: straight across if it can, otherwise at the
+# nearest point on the card's side.
+func entry_y(card, line_y):
+	var pad = entry_pad(card)
+	return clamp(line_y, card.position.y + pad, card.position.y + card.size.y - pad)
+
+# Each line runs straight out of its option to an upright halfway into the gap, along the
+# upright, then straight into the card it leads to. A choice's lines share one upright, so
+# branches fan out like a goalpost, and options leading to the same place join on it.
+# Hidden lines are drawn first so found ones sit on top where they overlap.
 func draw_lines():
+	# The canvas can draw once before layout() has run; there are no lines to draw yet.
+	if bar_x.is_empty():
+		return
+	var hidden = []
+	var found = []
 	for id in children:
+		# Options of one card that lead to the same place share an entry point, so their
+		# lines join on the upright instead of entering side by side.
+		var entries = {}
 		for pair in children[id]:
-			var target = cards.get(pair[1])
-			if target == null:
+			if not cards.has(pair[1]):
 				continue
-			var from
-			if pair[0] < 0:
-				from = right_middle(cards[id])
-			else:
-				# The line starts at the card's edge, level with its option.
-				from = right_middle(option_rows[id][pair[0]])
-				from.x = cards[id].position.x + cards[id].size.x
-			var found = pair[2]
-			var to = local_rect(target).position + Vector2(0, min(24.0, target.size.y / 2))
-			draw_curve(from, to, FOUND_LINE if found else HIDDEN_LINE, 3.0 if found else 2.0)
+			var card = cards[id]
+			var target = cards[pair[1]]
+			var from = Vector2(card.position.x + card.size.x, card.position.y + exit_offset(id, pair[0]))
+			if not entries.has(pair[1]):
+				entries[pair[1]] = entry_y(target, from.y)
+			var to = Vector2(target.position.x, entries[pair[1]])
+			var path = [from, to] if is_equal_approx(from.y, to.y) else [from, Vector2(bar_x[id], from.y), Vector2(bar_x[id], to.y), to]
+			(found if pair[2] else hidden).append(path)
+	for path in hidden:
+		draw_path(path, HIDDEN_LINE, HIDDEN_WIDTH)
+	for path in found:
+		draw_path(path, FOUND_LINE, FOUND_WIDTH)
 
-func local_rect(control):
-	return Rect2(control.global_position - canvas.global_position, control.size)
-
-func right_middle(control):
-	var rect = local_rect(control)
-	return rect.position + Vector2(rect.size.x, rect.size.y / 2)
-
-func draw_curve(from, to, color, width):
-	var bend = max(40.0, (to.x - from.x) / 2)
-	var points = PackedVector2Array()
-	for i in 25:
-		var t = i / 24.0
-		var a = from.lerp(from + Vector2(bend, 0), t)
-		var b = (from + Vector2(bend, 0)).lerp(to - Vector2(bend, 0), t)
-		var c = (to - Vector2(bend, 0)).lerp(to, t)
-		points.append(a.lerp(b, t).lerp(b.lerp(c, t), t))
-	canvas.draw_polyline(points, color, width, true)
+func draw_path(points, color, width):
+	for i in points.size() - 1:
+		canvas.draw_line(points[i], points[i + 1], color, width)
+	# Square off the corners so thick lines meet without a notch.
+	for point in points.slice(1, points.size() - 1):
+		canvas.draw_rect(Rect2(point - Vector2(width, width) / 2, Vector2(width, width)), color)
 
 func update_counts():
 	var options_total = 0
