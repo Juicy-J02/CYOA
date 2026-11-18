@@ -1,33 +1,47 @@
 extends Control
 
-@onready var items = %Items
+# Shared by every start screen layout in Scenes/StartScreens/. Each layout arranges the same
+# four buttons however it likes; they're found by their unique names (%ContinueButton etc.).
+# A layout may put a button in a row with a "Marker" label (see Split.tscn); the marker then
+# shows "›" while that button is selected, and the whole row hides with the button.
+
 @onready var continue_button = %ContinueButton
+@onready var start_button = %StartButton
+@onready var map_button = %MapButton
 @onready var quit_button = %QuitButton
 
 func _ready():
 	# load_game() returns {} for a missing or unreadable save, so a damaged file just hides Continue.
 	var save = SaveManager.load_game()
-	continue_button.get_parent().visible = not save.is_empty()
+	set_shown(continue_button, not save.is_empty())
 	if save.get("checkpoint", false):
 		continue_button.text = "Retry Last Choice"
 
 	# A browser tab can't be closed by the game, so Quit would do nothing there.
-	quit_button.get_parent().visible = not OS.has_feature("web")
+	set_shown(quit_button, not OS.has_feature("web"))
 
-	# The gold marker follows whichever item is selected, by mouse or by keyboard (arrow keys
-	# and Enter). Hovering an item selects it, so there's only ever one marker.
-	for row in items.get_children():
-		var button = row.get_child(1)
-		var marker = row.get_child(0)
-		button.focus_entered.connect(func(): marker.text = "›")
-		button.focus_exited.connect(func(): marker.text = "")
+	# Hovering a button selects it, the same as arrow keys do, so only one item ever looks
+	# selected. Enter presses the selected one.
+	var buttons = [continue_button, start_button, map_button, quit_button]
+	for button in buttons:
 		button.mouse_entered.connect(button.grab_focus)
+		var marker = button.get_parent().get_node_or_null("Marker")
+		if marker:
+			button.focus_entered.connect(func(): marker.text = "›")
+			button.focus_exited.connect(func(): marker.text = "")
 
-	# Start with the first visible item selected (Continue, or New Game with no save).
-	for row in items.get_children():
-		if row.visible:
-			row.get_child(1).grab_focus()
+	# Start with the first visible button selected (Continue, or New Game with no save).
+	for button in buttons:
+		if button.is_visible_in_tree():
+			button.grab_focus()
 			break
+
+# Hides a button, or its whole row when it sits in a row with a marker.
+func set_shown(button, shown):
+	if button.get_parent().has_node("Marker"):
+		button.get_parent().visible = shown
+	else:
+		button.visible = shown
 
 func _on_continue_button_pressed():
 	SaveManager.pending_load = SaveManager.load_game()

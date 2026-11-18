@@ -118,6 +118,27 @@ Options that loop back to the same choice (the prophecy questions) show ↺ inst
 or **Back** returns to the start screen. Colors and fonts are in `mainTheme.tres` as `MapCard`,
 `MapEnding`, `MapTitle` and `MapOption`.
 
+## Start screen layouts
+
+There are three start screen layouts to compare, each its own scene in `Scenes/StartScreens/`:
+
+| Layout | Scene | Look |
+|---|---|---|
+| Stack (A) | `Stack.tscn` | Title, statue, four stacked pill buttons |
+| Split (C) | `Split.tscn` | Statue on the left; title and a text menu on the right, with a gold "›" on the selected item |
+| Art (D) | `Art.tscn` | Large statue, pill buttons in a row along the bottom, Quit in the top-right corner |
+
+**Switching:** open `Scenes/StartScreen.tscn`, select the `StartScreen` node, and change **Layout** in the
+Inspector. Everything else in the game opens `StartScreen.tscn`, so nothing else needs to change. While
+testing (running from the editor or a debug build), **F2** on the start screen cycles through the layouts;
+release builds always use the Layout setting. A small "Layout: ..." note in the corner shows which one is
+up, in debug builds only.
+**Adding or changing a layout:** all layouts share `Scripts/startScreen.gd`, which finds the four buttons
+by their unique names (`%ContinueButton`, `%StartButton`, `%MapButton`, `%QuitButton`), so a layout can
+place them anywhere. Add a new scene to the list in `Scripts/startScreenPicker.gd` to make it selectable.
+**Selecting:** hovering a button selects it, the same as the arrow keys, and Enter presses it. The first
+visible button starts selected. Pill buttons show a brighter gold outline when selected (also on Game Over).
+
 ## Escape returns to the main menu
 Pressing **Escape** during the story goes back to the start screen (`_unhandled_input` in `main.gd`).
 Nothing extra is saved, because the story already autosaved at the current line, so **Continue** picks up right there.
