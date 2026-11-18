@@ -110,8 +110,11 @@ func make_ending_card(text, found):
 	return card
 
 # Columns: each card sits one column right of the furthest card that leads to it, so the
-# story always reads left to right. Rows: a card stays level with the card before it when the
-# incoming line can enter it straight, and later branches stack below.
+# story always reads left to right.
+# Rows: the map keeps a center line. Each card's longest branch stays on it (the line may
+# enter the card higher or lower to stay straight), and shorter branches go to the nearest
+# free spot above or below. Branches grow back toward the middle, so the map stays about one
+# screen tall however long the story gets.
 func layout():
 	var depth = {}
 	place_depth("start", 0, {}, depth)
@@ -132,11 +135,18 @@ func layout():
 		var column = depth.get(id, 0)
 		bar_x[id] = column_x[column] + column_width[column] + COLUMN_GAP / 2.0
 
-	var column_bottom = {}
-	place_rows("start", EDGE, depth, column_x, column_bottom, {})
+	var length = {}
+	branch_length("start", {}, length)
+	var taken = {}  # column -> [[top, bottom], ...] already used by cards
+	place_rows("start", -cards["start"].size.y / 2, depth, column_x, taken, length, {})
 
+	# The center line is y = 0, so cards can be above it; move everything below the top edge.
+	var top = INF
+	for id in cards:
+		top = min(top, cards[id].position.y)
 	var size_needed = Vector2.ZERO
 	for id in cards:
+		cards[id].position.y += EDGE - top
 		size_needed.x = max(size_needed.x, cards[id].position.x + cards[id].size.x)
 		size_needed.y = max(size_needed.y, cards[id].position.y + cards[id].size.y)
 	size_needed += Vector2(EDGE, EDGE)
@@ -158,24 +168,82 @@ func place_depth(id, d, on_path, depth):
 		place_depth(pair[1], d + 1, on_path, depth)
 	on_path.erase(id)
 
-func place_rows(id, y, depth, column_x, column_bottom, placed):
+# How many steps the longest route onward from a card is. Loops back don't count.
+func branch_length(id, on_path, length):
+	if length.has(id):
+		return length[id]
+	if id == "" or on_path.has(id) or not cards.has(id):
+		return 0
+	on_path[id] = true
+	var longest = 0
+	for pair in children.get(id, []):
+		longest = max(longest, 1 + branch_length(pair[1], on_path, length))
+	on_path.erase(id)
+	length[id] = longest
+	return longest
+
+# side and side_of: when side isn't 0, prefer a spot above (-1) or below (1) the height side_of,
+# so a branch goes the same way as its option and lines don't cross.
+func place_rows(id, wanted_top, depth, column_x, taken, length, placed, side = 0, side_of = 0.0):
 	if id == "" or placed.has(id) or not cards.has(id):
 		return
 	placed[id] = true
 	var column = depth.get(id, 0)
 	var card = cards[id]
-	y = max(y, column_bottom.get(column, float(EDGE)))
+	var y = free_spot(taken, column, wanted_top, card.size.y, side, side_of)
 	card.position = Vector2(column_x[column], y)
-	column_bottom[column] = y + card.size.y + ROW_GAP
-	for pair in children.get(id, []):
-		if cards.has(pair[1]):
-			# Keep the next card level with this one, unless the line would miss its side;
-			# then lower it just enough for the line to go straight in.
-			var line_y = y + exit_offset(id, pair[0])
-			var target = cards[pair[1]]
-			var pad = entry_pad(target)
-			var level = clamp(y, line_y - target.size.y + pad, line_y - pad)
-			place_rows(pair[1], level, depth, column_x, column_bottom, placed)
+	if not taken.has(column):
+		taken[column] = []
+	taken[column].append([y, y + card.size.y])
+
+	# The longest branch goes first so it gets the center line; shorter ones fit around it.
+	var order = children.get(id, []).duplicate()
+	order.sort_custom(func(a, b): return length.get(a[1], 0) > length.get(b[1], 0))
+	var main_line = 0.0
+	var main_center = 0.0
+	for i in order.size():
+		var pair = order[i]
+		if not cards.has(pair[1]):
+			continue
+		var target = cards[pair[1]]
+		var line_y = y + exit_offset(id, pair[0])
+		var pad = entry_pad(target)
+		if i == 0:
+			# Center the card on the middle line, as far as the line can still enter it straight.
+			var wanted = clamp(-target.size.y / 2, line_y - target.size.y + pad, line_y - pad)
+			place_rows(pair[1], wanted, depth, column_x, taken, length, placed)
+			main_line = line_y
+			main_center = target.position.y + target.size.y / 2
+		else:
+			# A side branch lines up with its option, on the same side of the main branch
+			# as its option is of the main option.
+			var branch_side = sign(line_y - main_line)
+			place_rows(pair[1], line_y - target.size.y / 2, depth, column_x, taken, length, placed, branch_side, main_center)
+
+# The top position closest to wanted_top where a card of this height fits in the column
+# without touching the cards already there.
+func free_spot(taken, column, wanted_top, height, side = 0, side_of = 0.0):
+	var used = taken.get(column, [])
+	var candidates = [wanted_top]
+	for span in used:
+		candidates.append(span[0] - ROW_GAP - height)  # just above this card
+		candidates.append(span[1] + ROW_GAP)           # just below it
+	var best = null
+	var best_score = 0.0
+	for top in candidates:
+		var fits = true
+		for span in used:
+			if top < span[1] + ROW_GAP and top + height > span[0] - ROW_GAP:
+				fits = false
+				break
+		if not fits:
+			continue
+		var right_side = side == 0 or sign(top + height / 2 - side_of) == side
+		var score = abs(top - wanted_top) + (0.0 if right_side else 100000.0)
+		if best == null or score < best_score:
+			best = top
+			best_score = score
+	return best
 
 # How far down a card its line leaves: level with the option, or the middle of a pill card.
 func exit_offset(id, option_index):
