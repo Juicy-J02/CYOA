@@ -129,6 +129,7 @@ static func get_nodes() -> Dictionary:
 	
 	"zach_act1_scene1_5": {
 		"type": "dialogue",
+		"ending": "Caught by Dad",
 		"speaker": "Zach",
 		"text": "*Crap.*",
 		"next": "end_game"

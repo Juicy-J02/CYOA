@@ -1,11 +1,10 @@
 # Save System: Decisions
 
-This lists the decisions made while building saving, Continue and Retry Last Choice, why each was
+This lists the decisions made while building saving, Continue, Retry Last Choice and the Story Map, why each was
 made, and what it means for the rest of the team. The "Rules for writers" section at the end is the
 short version for anyone editing the scene files (`scene1.gd`, `scene2.gd`, ...).
 
-This is the demo version of the save system. Progress tracking (a Progress screen of choices and
-endings found) and story flags are being worked on separately and aren't included here.
+Story flags (story entries that read earlier choices) are being worked on separately and aren't included here.
 
 ## Saving
 
@@ -48,9 +47,12 @@ Continue and Retry Last Choice put the state to resume from in `SaveManager.pend
 change to `Main.tscn`. `main.gd` reads it in `_ready()`, then clears it. If it's empty, a new story starts.
 **Why:** after a scene change, the new scene isn't loaded yet, so the button can't restore anything directly.
 
-### Protection against out-of-date saves
+### Protection against out-of-date and damaged saves
 - A save pointing at a story entry that no longer exists is ignored, and a new game starts.
-- Characters whose art file no longer exists are skipped when restoring.
+- Characters and backgrounds whose art file no longer exists are skipped when restoring.
+- **A damaged save never crashes the game** (Test Plan R6). `SaveManager.load_game()` returns `{}` for a file it
+  can't read or one without a story position, and the start screen then hides Continue. Fields with the wrong
+  type are dropped (`clean_state`), so a bad character entry or last choice is skipped and the rest still loads.
 
 **Why:** the team renames story entries (for example, `zach0` became `zach_act1_scene1_0`).
 **Impact:** renaming entries won't crash anyone's game, but a save sitting on a renamed line starts over.
@@ -71,6 +73,63 @@ should change, it's in `end_game` in `storyManager.gd`.
 ### Game Over screen
 It offers **Retry Last Choice**, **Restart from Beginning** and **Main Menu**. Retry is hidden if no choice was ever made.
 
+## Story Map
+
+The start screen's **Story Map** button opens a branching tree of the story (Test Plan R11). Choices are
+cards listing their options, lines run from each option to where it leads, and endings are the rounded
+cards at the tips. The header counts choices explored and endings found.
+
+### The map builds as you play
+A choice appears once the player reaches it, an ending once they find it, and a line once they pick that
+option. Options not tried yet show "???" with no line, so the map never shows where the story goes before
+the player gets there. With nothing found, it shows Start and "Your map fills in as you play."
+**Why:** seeing the branches ahead would spoil the choices. The header's totals still show how much is left.
+
+### Built from the story data
+`Scripts/storyMap.gd` (`StoryMap.build`) reads the story and works out which choices and endings exist and
+what each option leads to, following `"next"` through dialogue and art. New choices and endings appear on
+the map automatically. Only story reachable from the start counts, so cut or unfinished content doesn't
+inflate the totals.
+
+### Copies of the same choice are one entry: the `"map"` tag
+The story repeats some choices on different paths (for example "Ex or Friends" after either wig option).
+Giving those copies the same `"map"` name makes the map show them as **one** choice, and an option found on
+either path counts for both. The name is also the choice's title on the map; without one, the title comes
+from the id (`sneak_out` → "Sneak Out").
+**Why a tag instead of story flags:** it needs one optional line per copy and no change to how the story
+is structured. If the team adopts story flags later, the copies merge into single entries and the tags
+can be removed.
+
+### Endings are named with an `"ending"` field
+An ending is the last line before `end_game`. Its `"ending"` field is its title on the map
+("Caught by Dad"). Without one, the title comes from the id.
+
+### Progress is kept separately from the save
+`user://progress.cfg` records the choices reached, options picked (by their button text, so copies match)
+and endings found. **New Game never clears it**, so the map fills up across playthroughs. Like the save, a
+damaged progress file is skipped instead of crashing. `SaveManager.delete_progress()` resets it (there's
+no button for that yet).
+**Impact:** renaming a `"map"` name, an option's text or an ending's id makes that part of the map show
+as not found again for players who already found it.
+
+### Moving around the map
+The story runs left to right, so the map scrolls sideways: drag, use the mouse wheel, or the scrollbar.
+Options that loop back to the same choice (the prophecy questions) show ↺ instead of a line. **Escape**
+or **Back** returns to the start screen. Colors and fonts are in `mainTheme.tres` as `MapCard`,
+`MapEnding`, `MapTitle` and `MapOption`.
+
+## Start screen layout
+
+`Scenes/StartScreen.tscn` shows the statue on the left, and the title and a text menu on the right. The
+selected item turns gold with a "›" marker beside it. Quit is dimmed.
+**Why this layout:** it gives the statue the most room, and a text menu with one gold marker is the easiest
+to scan. Two other layouts were tried and dropped: four stacked pill buttons, and a large statue with the
+buttons along the bottom. They're in git history (commit `3a78749`) if anyone wants to look at them again.
+**Selecting:** hovering a menu item selects it, the same as the arrow keys, and Enter presses it. The first
+visible item starts selected (Continue, or New Game with no save).
+**Script:** `Scripts/startScreen.gd` finds the buttons by their unique names (`%ContinueButton`,
+`%StartButton`, `%MapButton`, `%QuitButton`), so they can be rearranged in the scene without changing it.
+
 ## Escape returns to the main menu
 Pressing **Escape** during the story goes back to the start screen (`_unhandled_input` in `main.gd`).
 Nothing extra is saved, because the story already autosaved at the current line, so **Continue** picks up right there.
@@ -82,7 +141,8 @@ Nothing extra is saved, because the story already autosaved at the current line,
 
 ## Earlier decisions this depends on
 - **One project-wide theme** (`Themes/mainTheme.tres`, set in Project Settings). Every screen gets the same look automatically.
-- **The game opens on `StartScreen.tscn`.** "New Game" goes to `Main.tscn`.
+- **The game opens on `StartScreen.tscn`.** "New Game" goes to `Main.tscn`. **"Quit"** closes the game (Test Plan
+  R10); nothing is lost because the story autosaves. It's hidden in web builds, where a game can't close its tab.
 - **`StoryManager.play_next_node` checks that the current entry exists**, and **`play_node` reports missing entries** with
   `push_error("Story node not found: ...")`. A broken `"next"` shows an error instead of freezing silently.
 - **Naming:** scripts in camelCase (`saveManager.gd`); autoloads in PascalCase (`SaveManager`); the menu button theme
@@ -100,3 +160,6 @@ Nothing extra is saved, because the story already autosaved at the current line,
 1. **Renaming an entry** sends any save sitting on it back to a new game, so avoid renaming lines once people are playing.
 2. **Any `"next"` must point to an entry that exists**, or the game shows "Story node not found" and stops at that line.
 3. **Ids must be unique across all scene files.** If two files use the same id, the later one is silently dropped.
+4. **Copying a choice onto another path?** Give every copy the same `"map": "Name"` so the Story Map shows it once.
+   The copies' options need the same button text to count as the same option.
+5. **Writing a new ending?** Add `"ending": "Title"` to the last line before `end_game` to name it on the Story Map.

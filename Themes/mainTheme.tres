@@ -146,6 +146,70 @@ grow_end = 4.0
 thickness = 4
 vertical = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_map_card"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+bg_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.6313726, 0.44313726, 0.2, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_map_ending"]
+content_margin_left = 18.0
+content_margin_top = 8.0
+content_margin_right = 18.0
+content_margin_bottom = 8.0
+bg_color = Color(0.17254902, 0.23137255, 0.3254902, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.6313726, 0.44313726, 0.2, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_map_option"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+bg_color = Color(0.074204974, 0.1074196, 0.16056561, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu_focus"]
+content_margin_left = 100.0
+content_margin_top = 15.0
+content_margin_right = 100.0
+content_margin_bottom = 15.0
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.8784314, 0.6901961, 0.3764706, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_menu_text"]
+content_margin_top = 2.0
+content_margin_right = 12.0
+content_margin_bottom = 2.0
+
 [resource]
 default_font = ExtResource("1_ocm8a")
 default_font_size = 26
@@ -164,9 +228,36 @@ ChoiceRow/constants/separation = 0
 Label/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
 MainMenuButton/base_type = &"Button"
 MainMenuButton/styles/disabled = SubResource("StyleBoxFlat_menu_disabled")
+MainMenuButton/styles/focus = SubResource("StyleBoxFlat_menu_focus")
 MainMenuButton/styles/hover = SubResource("StyleBoxFlat_menu_hover")
 MainMenuButton/styles/normal = SubResource("StyleBoxFlat_menu_normal")
 MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_menu_pressed")
+MenuMarker/base_type = &"Label"
+MenuMarker/colors/font_color = Color(0.8784314, 0.6901961, 0.3764706, 1)
+MenuMarker/font_sizes/font_size = 40
+MenuTextButton/base_type = &"Button"
+MenuTextButton/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+MenuTextButton/colors/font_focus_color = Color(0.8784314, 0.6901961, 0.3764706, 1)
+MenuTextButton/colors/font_hover_color = Color(0.8784314, 0.6901961, 0.3764706, 1)
+MenuTextButton/colors/font_hover_pressed_color = Color(0.7490196, 0.5411765, 0.2627451, 1)
+MenuTextButton/colors/font_pressed_color = Color(0.7490196, 0.5411765, 0.2627451, 1)
+MenuTextButton/font_sizes/font_size = 40
+MenuTextButton/styles/disabled = SubResource("StyleBoxEmpty_menu_text")
+MenuTextButton/styles/focus = SubResource("StyleBoxEmpty_menu_text")
+MenuTextButton/styles/hover = SubResource("StyleBoxEmpty_menu_text")
+MenuTextButton/styles/normal = SubResource("StyleBoxEmpty_menu_text")
+MenuTextButton/styles/pressed = SubResource("StyleBoxEmpty_menu_text")
+MapCard/base_type = &"PanelContainer"
+MapCard/styles/panel = SubResource("StyleBoxFlat_map_card")
+MapEnding/base_type = &"PanelContainer"
+MapEnding/styles/panel = SubResource("StyleBoxFlat_map_ending")
+MapOption/base_type = &"Label"
+MapOption/font_sizes/font_size = 18
+MapOption/styles/normal = SubResource("StyleBoxFlat_map_option")
+MapTitle/base_type = &"Label"
+MapTitle/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
+MapTitle/font_sizes/font_size = 20
+MapTitle/fonts/font = ExtResource("1_5mgfp")
 NameLabel/base_type = &"Label"
 NameLabel/colors/font_color = Color(0.93333334, 0.9019608, 0.83137256, 1)
 NameLabel/font_sizes/font_size = 28
