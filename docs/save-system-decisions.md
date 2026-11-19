@@ -118,28 +118,17 @@ Options that loop back to the same choice (the prophecy questions) show ↺ inst
 or **Back** returns to the start screen. Colors and fonts are in `mainTheme.tres` as `MapCard`,
 `MapEnding`, `MapTitle` and `MapOption`.
 
-## Start screen layouts
+## Start screen layout
 
-**The game uses Split (C).** It gives the statue the most room, and the text menu with its gold marker is
-the easiest to scan. The other two layouts are kept so they can be compared or switched back to later.
-Each layout is its own scene in `Scenes/StartScreens/`:
-
-| Layout | Scene | Look |
-|---|---|---|
-| Stack (A) | `Stack.tscn` | Title, statue, four stacked pill buttons |
-| Split (C) | `Split.tscn` | Statue on the left; title and a text menu on the right, with a gold "›" on the selected item |
-| Art (D) | `Art.tscn` | Large statue, pill buttons in a row along the bottom, Quit in the top-right corner |
-
-**Switching:** open `Scenes/StartScreen.tscn`, select the `StartScreen` node, and change **Layout** in the
-Inspector. Everything else in the game opens `StartScreen.tscn`, so nothing else needs to change. While
-testing (running from the editor or a debug build), **F2** on the start screen cycles through the layouts;
-release builds always use the Layout setting. A small "Layout: ..." note in the corner shows which one is
-up, in debug builds only.
-**Adding or changing a layout:** all layouts share `Scripts/startScreen.gd`, which finds the four buttons
-by their unique names (`%ContinueButton`, `%StartButton`, `%MapButton`, `%QuitButton`), so a layout can
-place them anywhere. Add a new scene to the list in `Scripts/startScreenPicker.gd` to make it selectable.
-**Selecting:** hovering a button selects it, the same as the arrow keys, and Enter presses it. The first
-visible button starts selected. Pill buttons show a brighter gold outline when selected (also on Game Over).
+`Scenes/StartScreen.tscn` shows the statue on the left, and the title and a text menu on the right. The
+selected item turns gold with a "›" marker beside it. Quit is dimmed.
+**Why this layout:** it gives the statue the most room, and a text menu with one gold marker is the easiest
+to scan. Two other layouts were tried and dropped: four stacked pill buttons, and a large statue with the
+buttons along the bottom. They're in git history (commit `3a78749`) if anyone wants to look at them again.
+**Selecting:** hovering a menu item selects it, the same as the arrow keys, and Enter presses it. The first
+visible item starts selected (Continue, or New Game with no save).
+**Script:** `Scripts/startScreen.gd` finds the buttons by their unique names (`%ContinueButton`,
+`%StartButton`, `%MapButton`, `%QuitButton`), so they can be rearranged in the scene without changing it.
 
 ## Escape returns to the main menu
 Pressing **Escape** during the story goes back to the start screen (`_unhandled_input` in `main.gd`).

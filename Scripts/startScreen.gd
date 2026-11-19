@@ -1,9 +1,9 @@
 extends Control
 
-# Shared by every start screen layout in Scenes/StartScreens/. Each layout arranges the same
-# four buttons however it likes; they're found by their unique names (%ContinueButton etc.).
-# A layout may put a button in a row with a "Marker" label (see Split.tscn); the marker then
-# shows "›" while that button is selected, and the whole row hides with the button.
+# The start screen: the statue on the left, and the title and a text menu on the right.
+# Each menu button sits in a row with a "Marker" label that shows "›" while that button is
+# selected, and the whole row hides with the button. Buttons are found by their unique names
+# (%ContinueButton etc.), so they can be moved around in the scene without changing this script.
 
 @onready var continue_button = %ContinueButton
 @onready var start_button = %StartButton
