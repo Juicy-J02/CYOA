@@ -29,14 +29,7 @@ func insert_character(character, character_position):
 
 	var sprite = Sprite2D.new()
 	sprite.texture = cropped_texture
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	sprite.position = character_position
 
-	var max_size = Vector2(400, 500)
-	var visible_size = Vector2(used_rect.size)
-	var scale_factor = min(
-		max_size.x / visible_size.x,
-		max_size.y / visible_size.y
-	)
-
-	sprite.scale = Vector2.ONE * scale_factor
 	add_child(sprite)

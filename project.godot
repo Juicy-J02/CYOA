@@ -20,9 +20,12 @@ config/icon="res://icon.svg"
 StoryData="*uid://dcby0l8brfr5p"
 InputManager="*uid://ca2y3qt1plt7r"
 StoryManager="*uid://csgum20r5dy1l"
+SaveManager="*res://Scripts/saveManager.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"

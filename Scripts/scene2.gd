@@ -13,12 +13,12 @@ static func get_nodes() -> Dictionary:
 		"type": "character",
 		"character": "res://Assets/Characters/meet_friends.png",
 		"position": {"x": 700, "y": 375},
-		"next": "friend1_act1_scene2_0"
+		"next": "jayce_act1_scene2_0"
 	},
 	
-	"friend1_act1_scene2_0": {
+	"jayce_act1_scene2_0": {
 		"type": "dialogue",
-		"speaker": "Friend 1",
+		"speaker": "Jayce",
 		"text": "Another meeting with the higher ups?",
 		"next": "zach_act1_scene2_0"
 	},
@@ -26,56 +26,56 @@ static func get_nodes() -> Dictionary:
 	"zach_act1_scene2_0": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "Yeah. This one was a drag.",
-		"next": "friend1_act1_scene2_1"
+		"text": "Yep.",
+		"next": "kyle_act1_scene2_0"
 	},
 	
-	"friend1_act1_scene2_1": {
+	"kyle_act1_scene2_0": {
 		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "You break the dress code?",
+		"speaker": "Kyle",
+		"text": "So what's the dress code this week? Still no short sleeves?",
 		"next": "zach_act1_scene2_1"
 	},
 	
 	"zach_act1_scene2_1": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "No, my style isn't as crazy as yours.",
+		"text": "Apparently the scar \"isn't professional.\" They want it covered up.",
+		"next": "jayce_act1_scene2_1"
+	},
+	
+	"jayce_act1_scene2_1": {
+		"type": "dialogue",
+		"speaker": "Jayce",
+		"text": "Nobody in drama club cares what you look like.",
+		"next": "kyle_act1_scene2_1"
+	},
+	
+	"kyle_act1_scene2_1": {
+		"type": "dialogue",
+		"speaker": "Kyle",
+		"text": "Yeah, you played a pirate last month. The scar would've made the costume.",
 		"next": "zach_act1_scene2_2"
 	},
 	
 	"zach_act1_scene2_2": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "I like the red hair by the way.",
-		"next": "friend1_act1_scene2_2"
+		"text": "I wish the company worked like drama club.",
+		"next": "jayce_act1_scene2_2"
 	},
 	
-	"friend1_act1_scene2_2": {
+	"jayce_act1_scene2_2": {
 		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "Way better than the blue, right?",
-		"next": "friend2_act1_scene2_0"
-	},
-	
-	"friend2_act1_scene2_0": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "And the green.",
+		"speaker": "Jayce",
+		"text": "Can't you just wear what you want?",
 		"next": "zach_act1_scene2_3"
 	},
 	
 	"zach_act1_scene2_3": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "You think they'd fire me if I got something similar?",
-		"next": "friend1_act1_scene2_3"
-	},
-	
-	"friend1_act1_scene2_3": {
-		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "Try it and find out.",
+		"text": "They keep buying me long sleeved shirts.",
 		"next": "zach_act1_scene2_4"
 	},
 	
@@ -96,181 +96,97 @@ static func get_nodes() -> Dictionary:
 		"type": "character",
 		"character": "res://Assets/Characters/meet_friends.png",
 		"position": {"x": 700, "y": 375},
-		"next": "friend2_act1_scene2_1"
+		"next": "jayce_act1_scene2_3"
 	},
 	
-	"friend2_act1_scene2_1": {
+	"jayce_act1_scene2_3": {
 		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "(in-between bites of a cheeseburger) Why not just quit?",
+		"speaker": "Jayce",
+		"text": "Why don't your parents just find someone who actually wants the job?",
 		"next": "zach_act1_scene2_5"
 	},
 	
 	"zach_act1_scene2_5": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "(in-between bites of a spicy chicken sandwich) Oh I try, but they just won't let me go.",
+		"text": "Because then they'd have to admit I'm not who they planned for me to be.",
+		"next": "kyle_act1_scene2_2"
+	},
+	
+	"kyle_act1_scene2_2": {
+		"type": "dialogue",
+		"speaker": "Kyle",
+		"text": "Their loss.",
+		"next": "pause_1"
+	},
+	
+	"pause_1": {
+		"type": "pause",
 		"next": "zach_act1_scene2_6"
 	},
 	
 	"zach_act1_scene2_6": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "It's not like you and your childhood sweetheart.",
-		"next": "friend2_act1_scene2_2"
-	},
-	
-	"friend2_act1_scene2_2": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "It was only 2 months!",
-		"next": "friend1_act1_scene2_5"
-	},
-	
-	"friend1_act1_scene2_5": {
-		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "*sarcastically* Such a thriving partnership.",
-		"next": "friend2_act1_scene2_3"
-	},
-	
-	"friend2_act1_scene2_3": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "It only happened because...y'know...",
+		"text": "Welcome, welcome! On your left, the lobby. Please admire the tasteful collapsed ceiling.",
 		"next": "zach_act1_scene2_7"
 	},
 	
 	"zach_act1_scene2_7": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "*sarcastically* And they looked so good together.",
-		"next": "friend2_act1_scene2_4"
+		"text": "And here we have the break room. Very open floor plan.",
+		"next": "kyle_act1_scene2_3"
 	},
 	
-	"friend2_act1_scene2_4": {
+	"kyle_act1_scene2_3": {
 		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "We did not!",
-		"next": "pause_1"
+		"speaker": "Kyle",
+		"text": "It's missing a few walls.",
+		"next": "zach_act1_scene2_8"
 	},
 	
-	#"friend2_act1_scene2_5": {
-		#"type": "dialogue",
-		#"speaker": "Friend 2",
-		#"text": "If they aren't paying you what you're worth, find someone who does.",
-		#"next": "zach_act1_scene2_8"
-	#},
-	#
-	#"zach_act1_scene2_8": {
-		#"type": "dialogue",
-		#"speaker": "Zach",
-		#"text": "I think I have.",
-		#"next": "friend1_act1_scene2_6"
-	#},
-	
-	"pause_1": {
-		"type": "pause",
-		"next": "friend1_act1_scene2_6"
-	},
-	
-	"friend1_act1_scene2_6": {
+	"zach_act1_scene2_8": {
 		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "You think your parent's company can survive without you?",
+		"speaker": "Zach",
+		"text": "That's the charm. No walls, no meetings, no dress code.",
 		"next": "zach_act1_scene2_9"
 	},
 	
 	"zach_act1_scene2_9": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "Nah. It'd probably burn down within a month.",
-		"next": "friend2_act1_scene2_6"
+		"text": "I just want to be free to do whatever I want. No one telling me who I'm supposed to be.",
+		"next": "jayce_act1_scene2_4"
 	},
 	
-	"friend2_act1_scene2_6": {
+	"jayce_act1_scene2_4": {
 		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "A month seems generous.",
-		"next": "friend1_act1_scene2_7"
+		"speaker": "Jayce",
+		"text": "That does sound nice.",
+		"next": "pause_2"
 	},
 	
-	"friend1_act1_scene2_7": {
-		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "I give it a week.",
-		"next": "friend2_act1_scene2_7"
-	},
-	
-	"friend2_act1_scene2_7": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "You are a professional at lighting things on fi-",
-		"next": "friend1_act1_scene2_8"
-	},
-	
-	"friend1_act1_scene2_8": {
-		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "Quit it.",
-		"next": "friend2_act1_scene2_8"
-	},
-	
-	"friend2_act1_scene2_8": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "...sorry.",
+	"pause_2": {
+		"type": "pause",
 		"next": "zach_act1_scene2_10"
 	},
 	
 	"zach_act1_scene2_10": {
 		"type": "dialogue",
 		"speaker": "Zach",
-		"text": "What? Afraid you're gonna start something?",
-		"next": "friend2_act1_scene2_9"
+		"text": "Hey, do you guys see that? Out past the trees.",
+		"next": "kyle_act1_scene2_4"
 	},
 	
-	"friend2_act1_scene2_9": {
+	"kyle_act1_scene2_4": {
 		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "Well...",
-		"next": "friend1_act1_scene2_9"
+		"speaker": "Kyle",
+		"text": "Looks like some kind of statue.",
+		"next": "zach_act1_scene2_11"
 	},
 	
-	"friend1_act1_scene2_9": {
-		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "Hey, take it easy.",
-		"next": "friend1_act1_scene2_10"
-	},
-	
-	"friend1_act1_scene2_10": {
-		"type": "dialogue",
-		"speaker": "Friend 1",
-		"text": "He's already overheating. Any more and he'll surely melt.",
-		"next": "friend2_act1_scene2_10"
-	},
-	
-	"friend2_act1_scene2_10": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "sorry...",
-		"next": "pause_2"
-	},
-	
-	"pause_2": {
-		"type": "pause",
-		"next": "friend2_act1_scene2_11"
-	},
-	
-	"friend2_act1_scene2_11": {
-		"type": "dialogue",
-		"speaker": "Friend 2",
-		"text": "What is that?",
-		"next": "zach_act1_scene2_12"
-	},
-	
-	"zach_act1_scene2_12": {
+	"zach_act1_scene2_11": {
 		"type": "dialogue",
 		"speaker": "Zach",
 		"text": "Let's find out.",
