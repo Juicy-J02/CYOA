@@ -163,3 +163,7 @@ Nothing extra is saved, because the story already autosaved at the current line,
 4. **Copying a choice onto another path?** Give every copy the same `"map": "Name"` so the Story Map shows it once.
    The copies' options need the same button text to count as the same option.
 5. **Writing a new ending?** Add `"ending": "Title"` to the last line before `end_game` to name it on the Story Map.
+6. **Writing a QTE (quick-time event)?** Use a `"qte"` entry instead of a choice:
+   `{"type": "qte", "map": "Fight: Shoot", "prompt": "SHOOT", "next": "<hit it in time>", "fail": "<ran out of time>"}`.
+   The player gets `qte_seconds` (top of `storyManager.gd`, 5 seconds) to click the prompt or press Space/Enter.
+   To change one QTE only, add `"time": 3.0`. A QTE saves like a choice, so Retry Last Choice brings back a missed one.

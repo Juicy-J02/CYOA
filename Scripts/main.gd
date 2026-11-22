@@ -18,4 +18,6 @@ func _unhandled_input(event):
 		# InputManager still hears clicks on the menu, and an unblocked click would advance
 		# the story (and its save) in the background. Continue and New Game unblock it again.
 		InputManager.input_blocked = true
+		# StoryManager keeps running on the menu, so a QTE's timer must stop too.
+		StoryManager.cancel_qte()
 		get_tree().change_scene_to_file("res://Scenes/StartScreen.tscn")

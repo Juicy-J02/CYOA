@@ -17,18 +17,26 @@ const REQUIRED_FIELDS := {
 	"dialogue": {"speaker": TYPE_STRING, "text": TYPE_STRING, "next": TYPE_STRING},
 	"choice": {"choices": TYPE_ARRAY},
 	"pause": {"next": TYPE_STRING},
+	"qte": {"prompt": TYPE_STRING, "next": TYPE_STRING, "fail": TYPE_STRING},
 	"end_game": {},
 }
 
 
 # Each scene file's nodes, kept separate so duplicate IDs across files can be seen.
-# When you add Scene4.gd, add it here AND in Scripts/storyData.gd.
+# Finds every "class_name SceneN" script on its own, so a new scene9.gd is checked
+# automatically. (It still has to be added to Scripts/storyData.gd to be in the game;
+# test_story_data_autoload_has_every_node catches it if it isn't.)
 static func scene_sources() -> Dictionary:
-	return {
-		"scene1.gd": Scene1.get_nodes(),
-		"scene2.gd": Scene2.get_nodes(),
-		"scene3.gd": Scene3.get_nodes(),
-	}
+	var found := []
+	for info in ProjectSettings.get_global_class_list():
+		var name: String = info["class"]
+		if name.begins_with("Scene") and name.trim_prefix("Scene").is_valid_int():
+			found.append(info)
+	found.sort_custom(func(a, b): return int(a["class"].trim_prefix("Scene")) < int(b["class"].trim_prefix("Scene")))
+	var sources := {}
+	for info in found:
+		sources[info["path"].get_file()] = load(info["path"]).get_nodes()
+	return sources
 
 
 # All nodes merged the same way StoryData does it.
@@ -39,8 +47,27 @@ static func all_nodes() -> Dictionary:
 	return merged
 
 
+# Choices and QTEs: the nodes where the player decides where the story goes.
+static func is_decision(node: Dictionary) -> bool:
+	return node.get("type") in ["choice", "qte"]
+
+
 static func is_ending(node: Dictionary) -> bool:
 	return node.get("type") in ENDING_TYPES
+
+
+# The lines that lead straight into end_game. The Story Map uses these to tell endings
+# apart (see docs/save-system-decisions.md), and their "ending" field is the title.
+static func ending_lines(nodes: Dictionary) -> Array:
+	var out := []
+	for id in nodes:
+		var node: Dictionary = nodes[id]
+		if is_ending(node):
+			continue
+		for n in next_ids(node):
+			if nodes.has(n) and is_ending(nodes[n]) and not id in out:
+				out.append(id)
+	return out
 
 
 # The node IDs a node can lead to (one for most nodes, one per option for choices).
@@ -50,6 +77,11 @@ static func next_ids(node: Dictionary) -> Array:
 		for option in node.get("choices", []):
 			if option is Dictionary and option.has("next"):
 				out.append(option["next"])
+	elif node.get("type") == "qte":
+		# Option 0 = hit it in time, option 1 = run out of time.
+		for key in ["next", "fail"]:
+			if node.has(key):
+				out.append(node[key])
 	elif node.has("next"):
 		out.append(node["next"])
 	return out
@@ -115,12 +147,12 @@ static func _walk(id: String, nodes: Dictionary, picks: Array, visited: Dictiona
 		routes.append(picks.duplicate())
 		return
 	visited[id] = picks.size()
-	if node.get("type") == "choice":
-		var options: Array = node.get("choices", [])
-		for i in options.size():
+	if is_decision(node):
+		var targets := next_ids(node)
+		for i in targets.size():
 			var p := picks.duplicate()
 			p.append(i)
-			_walk(options[i].get("next", ""), nodes, p, visited, routes)
+			_walk(targets[i], nodes, p, visited, routes)
 	else:
 		_walk(node.get("next", ""), nodes, picks, visited, routes)
 	visited.erase(id)

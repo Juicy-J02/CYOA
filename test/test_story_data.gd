@@ -5,9 +5,10 @@ extends GutTest
 
 const H = preload("res://test/story_helpers.gd")
 
-# How many endings the storyboard has. Max: set this once each ending has its
-# own node (right now every ending shares "end_game"). Leave at -1 to skip.
-const EXPECTED_ENDING_COUNT := -1
+# How many endings the script has (an ending = a line that leads into end_game).
+# From Max's first draft: Normal Ending, FUN Ending, and two game overs (failed to slay
+# The Dragon, failed to escape). Update this if the script adds or removes one.
+const EXPECTED_ENDING_COUNT := 4
 
 var nodes: Dictionary
 
@@ -149,8 +150,70 @@ func test_story_has_at_least_one_ending():
 
 
 func test_ending_count_matches_storyboard():
+	var endings := H.ending_lines(nodes)
+	gut.p("Endings found in the story data: %s" % ", ".join(endings))
 	if EXPECTED_ENDING_COUNT < 0:
-		pending("Set EXPECTED_ENDING_COUNT once each ending has its own node")
+		pending("Found %d endings. Set EXPECTED_ENDING_COUNT to the storyboard's number to check it" % endings.size())
 		return
-	var endings := nodes.keys().filter(func(id): return H.is_ending(nodes[id]))
 	assert_eq(endings.size(), EXPECTED_ENDING_COUNT, "Ending count does not match the storyboard")
+
+
+func test_every_qte_has_a_prompt_and_a_sensible_time():
+	var problems := []
+	for id in nodes:
+		var node: Dictionary = nodes[id]
+		if node.get("type") != "qte":
+			continue
+		if str(node.get("prompt", "")).strip_edges() == "":
+			problems.append("%s: QTE has no prompt" % id)
+		if node.get("next") == node.get("fail"):
+			problems.append("%s: hitting and missing the QTE go to the same place" % id)
+		if node.has("time") and not (typeof(node["time"]) in [TYPE_INT, TYPE_FLOAT] and node["time"] > 0):
+			problems.append("%s: \"time\" must be a number of seconds above 0" % id)
+	assert_true(problems.is_empty(), H.report(problems))
+
+
+# --- Rules for writers (docs/save-system-decisions.md) ---------------------
+
+func test_every_ending_has_a_title_for_the_story_map():
+	# Rule 5: the last line before end_game needs "ending": "Title".
+	var problems := []
+	for id in H.ending_lines(nodes):
+		if str(nodes[id].get("ending", "")).strip_edges() == "":
+			problems.append("%s leads to end_game but has no \"ending\" title" % id)
+	assert_true(problems.is_empty(), H.report(problems))
+
+
+func test_choice_copies_with_the_same_map_name_match():
+	# Rule 4: copies of a choice share a "map" name and must offer the same button text,
+	# or the Story Map counts them as different options.
+	var by_name := {}
+	for id in nodes:
+		var node: Dictionary = nodes[id]
+		if node.get("type") == "choice" and node.has("map"):
+			if not by_name.has(node["map"]):
+				by_name[node["map"]] = []
+			by_name[node["map"]].append(id)
+	var problems := []
+	for map_name in by_name:
+		var ids: Array = by_name[map_name]
+		var first: Array = nodes[ids[0]]["choices"].map(func(o): return o.get("text", ""))
+		first.sort()
+		for other_id in ids.slice(1):
+			var texts: Array = nodes[other_id]["choices"].map(func(o): return o.get("text", ""))
+			texts.sort()
+			if texts != first:
+				problems.append("\"%s\": %s and %s have different options" % [map_name, ids[0], other_id])
+	assert_true(problems.is_empty(), H.report(problems))
+
+
+func test_lists_scene_files_with_no_story_yet():
+	# Not a failure; just a reminder of what's still unwritten.
+	var empty := []
+	var sources := H.scene_sources()
+	for file in sources:
+		if sources[file].is_empty():
+			empty.append(file)
+	if not empty.is_empty():
+		gut.p("Scene files with no story yet: %s" % ", ".join(empty))
+	assert_gt(sources.size(), 0, "No scene files found")

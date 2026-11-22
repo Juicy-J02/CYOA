@@ -4,9 +4,20 @@ extends GutTest
 
 const H = preload("res://test/story_helpers.gd")
 
-# Background nodes that are allowed to have no image (black screen) on purpose.
-# Add a node ID here only if the art team confirms it is intentional.
-const ALLOWED_EMPTY_BACKGROUNDS := []
+# Background nodes that are allowed to have no image on purpose. Add a node ID here
+# only if it's intentional, e.g. a full-screen scene image covers it, or the script
+# asks for a fade to black.
+const ALLOWED_EMPTY_BACKGROUNDS := [
+	# A full-screen scene image (out_window, out_door, wig_browsing) covers these.
+	"window_background",
+	"back_door_background",
+	"wig_background",
+	# "(BACKGROUND: fade to black)" in the elevator.
+	"act2_scene3_ueo_elevator",
+	"act2_scene3_heo_elevator",
+	"act2_scene3_ufo_elevator",
+	"act2_scene3_hfo_elevator",
+]
 
 var nodes: Dictionary
 
