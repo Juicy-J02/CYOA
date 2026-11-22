@@ -5,6 +5,13 @@ signal choices_requested(choices)
 signal background_request(background_path)
 signal character_request(character_paht, position)
 signal pause_request
+signal qte_requested(prompt, seconds)
+signal qte_finished(hit)
+
+# How many seconds the player gets to hit a QTE. Change this one number to tune every QTE
+# in the game. A single QTE can override it with a "time" field in the story data, e.g.
+# {"type": "qte", "prompt": "STAB", "time": 3.0, ...}
+var qte_seconds = 5.0
 
 @onready var input_manager = $"../InputManager"
 
@@ -23,19 +30,33 @@ var last_choice = {}
 
 # Node types where the story waits for the player. Background and character
 # nodes move on immediately, so saving on them would be overwritten anyway.
-const SAVE_TYPES = ["dialogue", "choice", "pause"]
+const SAVE_TYPES = ["dialogue", "choice", "pause", "qte"]
+
+# Node types the player decides at. They show on the Story Map, and "Retry Last Choice"
+# goes back to the most recent one (so a missed QTE can be retried).
+const DECISION_TYPES = ["choice", "qte"]
+
+# The QTE on screen right now ({} when there isn't one), and how long is left on it.
+var qte_node = {}
+var qte_time_left = 0.0
+var qte_total_time = 0.0
 
 func _ready():
 	input_manager.left_click_sig.connect(play_next_node)
 
+func _process(delta):
+	tick_qte(delta)
+
 func start_story(start_id):
 	# StoryManager is an autoload, so it still holds the last playthrough's state.
+	cancel_qte()
 	current_background = ""
 	current_characters = []
 	last_choice = {}
 	play_node(start_id)
 
 func continue_story(save):
+	cancel_qte()
 	# A background that was renamed or removed since the save was made shows blank instead.
 	current_background = save.background if ResourceLoader.exists(save.background) else ""
 	current_characters = []
@@ -63,7 +84,7 @@ func play_node(node_id):
 	var node_data = story_data[node_id]
 
 	if node_data.type in SAVE_TYPES:
-		if node_data.type == "choice":
+		if node_data.type in DECISION_TYPES:
 			SaveManager.mark_group_seen(StoryMap.group_key(node_id, node_data))
 			# Record the choice before saving, so the save includes it. duplicate(true)
 			# copies the list, so characters added later don't change this snapshot.
@@ -89,6 +110,9 @@ func play_node(node_id):
 		
 		"pause":
 			pause(node_data)
+		
+		"qte":
+			start_qte(node_data)
 		
 		"end_game":
 			end_game(node_data)
@@ -131,6 +155,54 @@ func insert_character(node_data):
 	current_characters.append({"path": node_data.character, "position": character_position})
 	character_request.emit(node_data.character, character_position)
 	play_node(node_data.next)
+
+# --- QTEs ---
+# A QTE shows a prompt (SHOOT, BLOCK...) with a countdown. Hitting it in time plays "next";
+# running out of time plays "fail". Clicks on the story are blocked while it's up, so the
+# only way through is the prompt (button, Space or Enter).
+
+func start_qte(node_data):
+	InputManager.input_blocked = true
+	qte_node = node_data
+	qte_total_time = float(node_data.get("time", qte_seconds))
+	qte_time_left = qte_total_time
+	qte_requested.emit(node_data.prompt, qte_total_time)
+
+func is_qte_active():
+	return not qte_node.is_empty()
+
+# Counts the QTE down. Runs every frame from _process; tests call it directly.
+func tick_qte(delta):
+	if not is_qte_active():
+		return
+	qte_time_left -= delta
+	if qte_time_left <= 0.0:
+		qte_missed()
+
+func qte_hit():
+	if not is_qte_active():
+		return
+	finish_qte(true)
+
+func qte_missed():
+	if not is_qte_active():
+		return
+	finish_qte(false)
+
+func finish_qte(hit):
+	var node_data = qte_node
+	var group = StoryMap.group_key(current_node_id, node_data)
+	qte_node = {}
+	qte_time_left = 0.0
+	SaveManager.record_option(group, node_data.prompt if hit else StoryMap.QTE_MISS)
+	qte_finished.emit(hit)
+	play_node(node_data.next if hit else node_data.fail)
+
+# Stops a QTE without hitting or missing it, e.g. when Escape leaves for the main menu.
+# The save still points at the QTE, so Continue starts it again with the full time.
+func cancel_qte():
+	qte_node = {}
+	qte_time_left = 0.0
 
 func pause(_node_data):
 	InputManager.input_blocked = false

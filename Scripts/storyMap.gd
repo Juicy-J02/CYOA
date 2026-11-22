@@ -10,6 +10,22 @@ class_name StoryMap
 #                                choice's title on the map.
 #   "ending": "Caught by Dad"    on the last line before end_game. The ending's title on the map.
 
+# The button text a missed QTE is recorded under, so the map can show "Miss" as an option.
+const QTE_MISS = "Miss"
+
+# Choices and QTEs are the player's decisions; both show on the map as cards.
+static func is_decision(node_data):
+	return node_data.get("type", "") in ["choice", "qte"]
+
+# The options a decision offers, as [{text, next}]. A QTE has two: hit it, or miss it.
+static func options_of(node_data):
+	if node_data.get("type", "") == "qte":
+		return [
+			{"text": node_data.get("prompt", ""), "next": node_data.get("next", "")},
+			{"text": QTE_MISS, "next": node_data.get("fail", "")},
+		]
+	return node_data.get("choices", [])
+
 # Choices with the same "map" name are one group. Without one, a choice is its own group.
 static func group_key(node_id, node_data):
 	return node_data.get("map", node_id)
@@ -29,9 +45,9 @@ static func follow(story_data, node_id, previous_id = ""):
 	while story_data.has(node_id) and not seen.has(node_id):
 		seen[node_id] = true
 		var node_data = story_data[node_id]
+		if is_decision(node_data):
+			return {"kind": "group", "id": group_key(node_id, node_data)}
 		match node_data.get("type", ""):
-			"choice":
-				return {"kind": "group", "id": group_key(node_id, node_data)}
 			"end_game":
 				return {"kind": "ending", "id": previous_id}
 		previous_id = node_id
@@ -49,13 +65,13 @@ static func build(story_data, start_id):
 	var all_groups = {}
 	for node_id in story_data:
 		var node_data = story_data[node_id]
-		if node_data.get("type", "") != "choice":
+		if not is_decision(node_data):
 			continue
 		var key = group_key(node_id, node_data)
 		if not all_groups.has(key):
 			all_groups[key] = {"title": group_title(node_id, node_data), "options": []}
 		var options = all_groups[key].options
-		for option in node_data.get("choices", []):
+		for option in options_of(node_data):
 			var target = follow(story_data, option.get("next", ""), node_id)
 			# Copies of a choice list the same options; merge them by their button text.
 			var merged = null
